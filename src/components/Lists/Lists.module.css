@@ -1,0 +1,40 @@
+.ListsContainer {
+	display: flex;
+	padding: 0 4px;
+	height: 100%;
+	overflow-x: scroll;
+}
+
+.ButtonNewList {
+	border: unset;
+	outline: unset;
+	cursor: pointer;
+
+	display: inline-flex;
+	flex: 0 0 250px;
+	align-self: flex-start;
+	align-items: center;
+
+	margin: 5px 5px 5px 5px;
+	border-radius: 3px;
+	padding: 10px 12px;
+	width: 250px;
+	height: auto;
+	min-height: 32px;
+
+	background-color: var(--btn-bg-0);
+	box-shadow: var(--shadow-1);
+
+	font-size: 1rem;
+	color: var(--base-solid-1);
+
+	transition: all 0.1s ease-in 0s;
+}
+
+.ButtonNewList:hover {
+	background-color: var(--btn-bg-1);
+}
+
+.ButtonNewList svg {
+	margin-right: 4px;
+}

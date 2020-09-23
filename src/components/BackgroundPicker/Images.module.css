@@ -1,0 +1,139 @@
+.ImagesWrapper {
+	padding-top: 12px;
+}
+
+/* ImagesHeader - START */
+.ImagesHeader {
+	display: flex;
+	justify-content: flex-end;
+	margin-bottom: 8px;
+}
+
+.Title.MainTitle {
+	flex: 1 0 40%;
+}
+
+.Title {
+	margin: 4px 0 8px;
+	padding: 0 8px;
+	width: 100%;
+	color: var(--base-solid-1);
+}
+
+/* SearchField - START */
+.SearchField {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	flex: 1 0 60%;
+}
+
+.SFInput {
+	outline: unset;
+	border: unset;
+	border-radius: 3px;
+	padding: 0 8px;
+	background-color: var(--input-bg);
+	width: 80%;
+	height: 100%;
+	color: var(--base-solid-1);
+	transition: all 0.1s ease-in-out 0s;
+}
+
+.SFLabel {
+	position: absolute;
+	z-index: -1;
+	top: 50%;
+	left: calc(20% + 8px);
+	transform: translateY(-50%);
+	display: flex;
+	align-items: center;
+	color: var(--base-solid-1);
+
+	visibility: visible;
+	opacity: 0.5;
+	transition: all 0.2s ease-in-out 0s;
+}
+
+.SFLabel svg {
+	margin-right: 4px;
+}
+
+.SFInput:hover ~ .SFLabel {
+	opacity: 1;
+}
+
+.SFInput:focus {
+	width: 100%;
+}
+
+.SFInput:focus ~ .SFLabel,
+.SFInput.Active ~ .SFLabel {
+	visibility: hidden;
+	opacity: 0;
+}
+/* SearchField - END */
+/* ImagesHeader - END */
+
+/* ImagesContainer - START */
+.ImagesContainer {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.PreviousImagesWrapper,
+.MainImagesWrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	flex: 1 0 100%;
+}
+
+.Images {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	width: 100%;
+}
+
+.SingleImageWrapper {
+	flex: 0 0 33.33333%;
+	padding: 4px;
+}
+
+.SingleImage {
+	display: block;
+	height: 100%;
+	border-radius: 3px;
+	overflow: hidden;
+	box-shadow: var(--shadow-0);
+	transition: all 0.15s ease-in-out 0s;
+}
+
+.SingleImage:hover {
+	transform: scale(1.05);
+}
+
+.SingleImage:active {
+	transform: scale(0.95);
+	transition: all 0.05s ease-in-out 0s;
+}
+
+.SingleImage img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.SingleImage.ImageUnset {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: var(--base-solid-0);
+	color: var(--base-solid-1);
+	font-size: 2rem;
+}
+/* ImagesContainer - END */

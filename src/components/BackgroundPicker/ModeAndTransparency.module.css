@@ -1,0 +1,64 @@
+.MATWrapper {
+	padding-bottom: 4px;
+	border-bottom: var(--border-bot);
+}
+
+.OptionWrapper {
+	margin-bottom: 16px;
+}
+
+.Title {
+	margin: 4px 0 12px;
+	padding: 0 8px;
+	flex: 1 0 40%;
+	color: var(--base-solid-1);
+}
+
+.ModeContainer,
+.TransparencyContainer {
+	border-radius: 1rem;
+	width: 4rem;
+	height: 2rem;
+	background-color: var(--bg-solid-4);
+}
+
+.ToggleButton {
+	outline: unset;
+	cursor: pointer;
+	border: unset;
+	background: unset;
+	border-radius: 1rem;
+	width: 100%;
+	overflow: hidden;
+}
+
+.Slider {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 2px solid var(--blue10);
+	border-radius: 50%;
+	width: 2rem;
+	height: 2rem;
+	background-color: var(--bg-solid-1);
+	font-size: 1.1rem;
+	color: var(--base-solid-1);
+	box-shadow: var(--shadow-4);
+	transition: margin-left 0.25s linear 0s;
+}
+
+.ToggleButton.Mode[class*=light] .Slider {
+	margin-left: 0rem;
+}
+
+.ToggleButton.Mode[class*=dark] .Slider {
+	margin-left: 2rem;
+}
+
+.ToggleButton.Transparency .Slider {
+	margin-left: 0rem;
+}
+
+.ToggleButton.Transparency[class*=transparent] .Slider {
+	margin-left: 2rem;
+}

@@ -1,0 +1,93 @@
+.SingleItem {
+	position: relative;
+	display: flex;
+	align-items: flex-start;
+	margin-bottom: 8px;
+	padding: 6px 8px;
+	border-radius: 3px;
+	background-color: var(--base-solid-0);
+	box-shadow: var(--shadow-0);
+	transition: all 0.1s linear 0s;
+}
+
+.SingleItem:hover {
+	background-color: var(--bg-solid-0);
+}
+
+.SingleItem.ItemDone {
+	box-shadow: 0 2px 0 var(--green);
+}
+
+.SingleItem.Dragging {
+	transform: rotate(3deg);
+	background-color: var(--bg-solid-0);
+}
+
+.Name {
+	cursor: pointer;
+	flex: 1 0;
+	display: flex;
+	transition: unset;
+	color: var(--base-solid-1);
+}
+
+.Done {
+	position: absolute;
+	top: 0;
+	left: 0;
+	transform: translate(-45%, -30%);
+	display: inline-flex;
+	align-self: flex-start;
+
+	cursor: pointer;
+	margin-right: 4px;
+	border-radius: 50%;
+	padding: 3px;
+	background-color: var(--green);
+	font-size: 0.7rem;
+	font-weight: 600;
+	color: var(--base-solid-0);
+	opacity: 0;
+	transition: all 0.1s ease-in-out 0s;
+}
+
+.Done:hover,
+.Done.Show {
+	opacity: 1;
+}
+
+.Done:hover {
+	transform: translate(-45%, -30%) scale(1.1);
+}
+
+.SingleItem:hover .Done:not(:hover):not(.Show) {
+	opacity: 0.5;
+}
+
+.Done.Show:hover {
+	background-color: #e63946;
+}
+
+.ButtonOptions {
+	display: flex;
+	align-items: center;
+	border: unset;
+	border-radius: 3px;
+	padding: 2px 4px;
+	background-color: unset;
+	font-size: 1rem;
+	color: var(--base-solid-1);
+
+	opacity: 0;
+	transition: all 0.1s ease-in 0s;
+}
+
+.SingleItem:hover .ButtonOptions {
+	opacity: 0.5;
+}
+
+.SingleItem .ButtonOptions:hover,
+.SingleItem.ActiveItem .ButtonOptions {
+	background-color: var(--bg-solid-1);
+	opacity: 1;
+}

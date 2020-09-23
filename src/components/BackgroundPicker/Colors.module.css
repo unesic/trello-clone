@@ -1,0 +1,56 @@
+.ColorsWrapper {
+	padding-top: 12px;
+	padding-bottom: 16px;
+	border-bottom: var(--border-bot);
+}
+
+.Title {
+	margin: 4px 0 8px;
+	padding: 0 8px;
+	color: var(--base-solid-1);
+}
+
+.ColorsContainer {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.SingleColorWrapper {
+	flex: 0 0 20%;
+	padding: 4px;
+	height: 58px;
+}
+
+.SingleColor {
+	width: 100%;
+	height: 50px;
+	outline: unset;
+	border-radius: 3px;
+	border: unset;
+	box-shadow: var(--shadow-0);
+	color: var(--base-solid-1);
+	transition: all 0.15s ease-in-out 0s;
+}
+
+.SingleColor:hover {
+	transform: scale(1.05);
+}
+
+.SingleColor:active {
+	transform: scale(0.95);
+	transition: all 0.05s ease-in-out 0s;
+}
+
+.SingleColor.Current {
+	box-shadow: 0 0 0 2px var(--text-solid-4);
+}
+
+.SingleColor.ColorUnset {
+	background-color: var(--base-solid-0);
+}
+
+.ColorCode {
+	font-size: 0.7rem;
+	text-transform: uppercase;
+	filter: invert(1) grayscale(1) contrast(5) brightness(2);
+}
