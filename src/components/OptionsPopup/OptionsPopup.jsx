@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 
 import Header from "./Header";
 import Options from "./Options";
-import { AppContext } from "../../App";
+import { AppContext } from "../../App/App";
 import useVisible from "../useVisible";
 import {
 	OptionsWrapper,

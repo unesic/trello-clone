@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { AppContext } from "../../App";
+import { AppContext } from "../../App/App";
 
 export const useRemoveList = (id) => {
 	const context = useContext(AppContext);

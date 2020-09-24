@@ -8,13 +8,13 @@ import React, {
 } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 
-import reducer from "./App/reducer";
-import reorder from "./App/App.helper";
+import reducer from "./reducer";
+import reorder from "./App.helper";
 
-import Lists from "./components/Lists/Lists";
-import OptionsPopUp from "./components/OptionsPopup/OptionsPopup";
-import BackgroundPicker from "./components/BackgroundPicker/BackgroundPicker";
-import { AppContainer } from "./App/App.module.css";
+import Lists from "../components/Lists/Lists";
+import OptionsPopUp from "../components/OptionsPopup/OptionsPopup";
+import BackgroundPicker from "../components/BackgroundPicker/BackgroundPicker";
+import { AppContainer } from "./App.module.css";
 
 export const AppContext = createContext();
 

@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Droppable } from "react-beautiful-dnd";
 import { FiPlus } from "react-icons/fi";
 
-import { AppContext } from "../../App";
+import { AppContext } from "../../App/App";
 import { ListsContainer, ButtonNewList } from "./Lists.module.css";
 import List from "../List/List";
 

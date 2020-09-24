@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { FiX } from "react-icons/fi";
 
-import { AppContext } from "../../App";
+import { AppContext } from "../../App/App";
 import {
 	ColorsWrapper,
 	Title,

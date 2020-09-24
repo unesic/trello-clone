@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Droppable } from "react-beautiful-dnd";
 
 import { ItemsContainer } from "./Items.module.css";
-import { AppContext } from "../../App";
+import { AppContext } from "../../App/App";
 import Item from "../Item/Item";
 
 const Items = ({ items, listId }) => {

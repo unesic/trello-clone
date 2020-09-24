@@ -1,7 +1,7 @@
 import React, { useState, useContext, useCallback } from "react";
 import { FiSettings, FiX } from "react-icons/fi";
 
-import { AppContext } from "../../App";
+import { AppContext } from "../../App/App";
 import Modal from "../Modal/Modal";
 import ModeAndTransparency from "./ModeAndTransparency";
 import Colors from "./Colors";

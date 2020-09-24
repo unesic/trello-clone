@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import { FiMoreHorizontal, FiCheckCircle, FiX } from "react-icons/fi";
 
-import { AppContext } from "../../App";
+import { AppContext } from "../../App/App";
 import StatusIcon from "./StatusIcon";
 import Text from "../Text";
 import {

@@ -2,7 +2,7 @@ import React, { useContext, useCallback } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import { FiPlus } from "react-icons/fi";
 
-import { AppContext } from "../../App";
+import { AppContext } from "../../App/App";
 import Items from "../Items/Items";
 import Header from "./Header";
 

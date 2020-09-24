@@ -3,7 +3,7 @@ import { FiSun, FiMoon } from "react-icons/fi";
 import { RiDropFill } from "react-icons/ri";
 import { CgDrop } from "react-icons/cg";
 
-import { AppContext } from "../../App";
+import { AppContext } from "../../App/App";
 import {
 	MATWrapper,
 	OptionWrapper,
