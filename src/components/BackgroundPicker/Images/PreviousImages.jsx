@@ -9,7 +9,7 @@ import {
 } from "../Images.module.css";
 
 const PreviousImages = ({ images, click, search }) => {
-	return !search ? (
+	return !search && images.length ? (
 		<div className={PreviousImagesWrapper}>
 			<h4 className={Title}>Recently picked</h4>
 			<div className={Images}>

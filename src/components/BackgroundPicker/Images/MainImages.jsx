@@ -11,9 +11,11 @@ import {
 } from "../Images.module.css";
 
 const MainImages = ({ images, click, search, searchTerm }) => {
-	return (
+	return images.length ? (
 		<div className={MainImagesWrapper}>
-			<h4 className={Title}>{!search ? "Popular" : `Search results for "${searchTerm}"`}</h4>
+			<h4 className={Title}>
+				{!search ? "Popular" : `Search results for "${searchTerm}"`}
+			</h4>
 			<div className={Images}>
 				<div className={SingleImageWrapper}>
 					<a
@@ -37,7 +39,7 @@ const MainImages = ({ images, click, search, searchTerm }) => {
 				))}
 			</div>
 		</div>
-	);
+	) : null;
 };
 
 export default MainImages;
