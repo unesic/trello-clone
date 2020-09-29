@@ -1,0 +1,24 @@
+.DetailsPopup {
+	left: calc(50% - 300px);
+	width: 600px;
+	height: calc(100vh - 200px);
+	overflow-y: auto;
+}
+
+.DetailsPopup[class*="transition-enter"] {
+	top: -100vh;
+}
+
+.DetailsPopup[class*="transition-enter-active"],
+.DetailsPopup[class*="transition-enter-done"] {
+	top: 100px;
+}
+
+.DetailsPopup[class*="transition-exit"] {
+	top: 100px;
+}
+
+.DetailsPopup[class*="transition-exit-active"],
+.DetailsPopup[class*="transition-exit-done"] {
+	top: -100vh;
+}

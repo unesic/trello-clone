@@ -1,0 +1,75 @@
+.OptionsWrapper {
+	position: fixed;
+	transform: translate(30px, -20px);
+	display: none;
+	cursor: pointer;
+	border-radius: 3px;
+	padding: 0 4px;
+	transition: all 0.1s ease-in 0s;
+}
+
+.OptionsWrapper.Active {
+	display: block;
+}
+
+.OptionsInner {
+	width: 200px;
+	border-radius: 3px;
+	padding: 12px;
+	background-color: var(--base-solid-0);
+	box-shadow: var(--shadow-3);
+}
+
+.Button {
+	cursor: pointer;
+	outline: unset;
+	border: unset;
+	background: unset;
+	color: var(--base-solid-1);
+
+	display: flex;
+	align-items: center;
+	border-radius: 3px;
+	padding: 8px;
+	font-size: 1rem;
+}
+
+.OptionsInner .Button:not(.ButtonClose) {
+	width: 100%;
+}
+
+.OptionsInner .Button:hover {
+	background-color: var(--btn-bg-1);
+}
+
+.OptionsInner .Button:not(.ButtonClose) svg {
+	margin-right: 8px;
+	font-size: 0.9rem;
+}
+
+.HeaderWrapper {
+	position: relative;
+	margin-bottom: 12px;
+	padding: 4px 8px 12px;
+	box-shadow: var(--shadow-0);
+}
+
+.Name {
+	margin-bottom: 4px;
+	color: var(--text-solid-3);
+	font-size: 1rem;
+	font-weight: 600;
+	width: 90%;
+}
+
+.Description {
+	color: var(--text-solid-1);
+	line-height: 1rem;
+}
+
+.ButtonClose {
+	position: absolute;
+	top: -8px;
+	right: -8px;
+	color: var(--text-solid-0);
+}

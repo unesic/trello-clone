@@ -10,7 +10,7 @@ const reducer = (state, action) => {
 		case "SET_BACKGROUND_IMAGE":
 			return {
 				...state,
-				backgroundImage: `url(${action.payload})`,
+				backgroundImage: { ...action.payload },
 			};
 		case "SET_BACKGROUND_COLOR":
 			return {

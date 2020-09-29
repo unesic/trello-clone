@@ -1,0 +1,63 @@
+.Backdrop {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: var(--grey3);
+	transition: all 0.2s ease-in-out 0s;
+}
+
+.Backdrop[class*="Backdrop-transition-enter"] {
+	visibility: hidden;
+	opacity: 0;
+}
+
+.Backdrop[class*="Backdrop-transition-enter-active"],
+.Backdrop[class*="Backdrop-transition-enter-done"] {
+	visibility: visible;
+	opacity: 1;
+}
+
+.Backdrop[class*="Backdrop-transition-exit"] {
+	visibility: visible;
+	opacity: 1;
+}
+
+.Backdrop[class*="Backdrop-transition-exit-active"],
+.Backdrop[class*="Backdrop-transition-exit-done"] {
+	visibility: hidden;
+	opacity: 0;
+}
+
+.ModalContainer {
+	position: fixed;
+	width: 400px;
+	max-width: 95vw;
+	padding: 20px;
+	background-color: var(--bg-solid-1);
+	box-shadow: var(--shadow-1);
+	transition: all 0.2s ease-in-out 0s;
+}
+
+.ModalContainer[class*="transition-enter"] {
+	visibility: hidden;
+	opacity: 0;
+}
+
+.ModalContainer[class*="transition-enter-active"],
+.ModalContainer[class*="transition-enter-done"] {
+	visibility: visible;
+	opacity: 1;
+}
+
+.ModalContainer[class*="transition-exit"] {
+	visibility: visible;
+	opacity: 1;
+}
+
+.ModalContainer[class*="transition-exit-active"],
+.ModalContainer[class*="transition-exit-done"] {
+	visibility: hidden;
+	opacity: 0;
+}

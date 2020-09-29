@@ -8,22 +8,32 @@ import React, {
 } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 
+import dummyUser from "./user.json";
+
+import useToggle from "../lib/useToggle";
 import reducer from "./reducer";
 import reorder from "./App.helper";
 
-import Lists from "../components/Lists/Lists";
-import OptionsPopUp from "../components/OptionsPopup/OptionsPopup";
-import BackgroundPicker from "../components/BackgroundPicker/BackgroundPicker";
+import Lists from "../Board/Lists/Lists";
+import OptionsPopUp from "../Board/OptionsPopup/OptionsPopup";
+import DetailsModal from "../Board/DetailsModal/DetailsModal";
+import SideDrawer from "../SideDrawer/SideDrawer";
 import { AppContainer } from "./App.module.css";
 
 export const AppContext = createContext();
 
 const App = () => {
+	const [user, setUser] = useState(dummyUser);
+
 	const [lists, setLists] = useState([]);
 	const [dragging, setDragging] = useState();
 	const [clickedItem, setClickedItem] = useState();
+	const [details, toggleDetails] = useToggle(false);
 	const [appStyle, dispatch] = useReducer(reducer, {
-		backgroundImage: undefined,
+		backgroundImage: {
+			id: undefined,
+			url: undefined,
+		},
 		backgroundColor: undefined,
 		transparency: false,
 		mode: "light",
@@ -56,6 +66,10 @@ const App = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [JSON.stringify(appStyle)]);
 
+	useEffect(() => {
+		if (!details) setClickedItem(null);
+	}, [details]);
+
 	const onDragStart = useCallback((res) => {
 		setDragging(res.type);
 	}, []);
@@ -70,23 +84,27 @@ const App = () => {
 		setDragging(null);
 	};
 
+	const styles = {
+		height: "100%",
+		backgroundImage: `url(${appStyle.backgroundImage.url})`,
+		backgroundColor:
+			appStyle.backgroundColor !== "unset"
+				? appStyle.backgroundColor
+				: null,
+	};
+	const classes = [
+		AppContainer,
+		appStyle.mode,
+		appStyle.transparency ? "transparent" : "",
+	].join(" ");
+
 	return (
-		<div
-			style={{
-				height: "100%",
-				backgroundImage: appStyle.backgroundImage,
-				backgroundColor:
-					appStyle.backgroundColor !== "unset"
-						? appStyle.backgroundColor
-						: null,
-			}}
-			className={`${AppContainer} ${appStyle.mode} ${
-				appStyle.transparency ? "transparent" : ""
-			}`}
-		>
+		<div className={classes} style={styles}>
 			<DragDropContext onDragStart={onDragStart} onDragEnd={onDragEnd}>
 				<AppContext.Provider
 					value={{
+						user,
+						setUser,
 						lists,
 						setLists,
 						dragging,
@@ -94,11 +112,15 @@ const App = () => {
 						setClickedItem,
 						appStyle,
 						dispatch,
+						details,
+						toggleDetails,
 					}}
 				>
 					{lists ? <Lists /> : "Loading..."}
+
 					<OptionsPopUp />
-					<BackgroundPicker />
+					<DetailsModal />
+					<SideDrawer />
 				</AppContext.Provider>
 			</DragDropContext>
 		</div>

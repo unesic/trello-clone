@@ -1,6 +1,10 @@
-body {
+* {
 	margin: 0;
-	overflow-x: hidden;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
 		"Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
 		"Helvetica Neue", sans-serif;
@@ -9,16 +13,9 @@ body {
 	line-height: 20px;
 }
 
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-}
-
-html,
-body,
 #root {
-	height: 100%;
+	width: 100vw;
+	height: 100vh;
 }
 
 :root {
@@ -35,7 +32,7 @@ body,
 	--blue4: #457b9d;
 	--blue5: #325e79;
 	--blue6: #172b4d;
-	
+
 	--blue7: #212530;
 	--blue8: #323a49;
 	--blue9: #171b22;
@@ -58,7 +55,7 @@ body,
 
 .transparent {
 	--white: #ffffffe0;
-	--blue1: #ebecf0d0;	
+	--blue1: #ebecf0d0;
 	--blue7: #212530d0;
 	--blue8: #323a49e0;
 	--blue11: #11161dd0;
@@ -118,9 +115,8 @@ body,
 	--bg-solid-3: var(--blue9);
 	--bg-solid-4: var(--blue11);
 
-	--btn-bg-0: var(--grey4);
-
-	--btn-bg-1: var(--shadow-blue6);
+	--btn-bg-0: var(--grey3);
+	--btn-bg-1: var(--blue9);
 	--btn-bg-2: var(--grey2);
 
 	--border-bot: 1px solid var(--blue2);
@@ -147,4 +143,9 @@ body,
 *::-webkit-scrollbar-thumb {
 	background-color: var(--scroll-thumb);
 	border-radius: 10px;
+}
+
+
+pre {
+	white-space: pre-wrap;
 }

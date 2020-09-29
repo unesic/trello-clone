@@ -1,0 +1,14 @@
+.Title {
+	margin: 4px 0 14px;
+	padding: 0 8px;
+	color: var(--base-solid-1);
+}
+
+.CommentsContainer {
+	padding: 4px 4px 0;
+}
+
+.CommentsWrapper {
+	border-radius: 3px;
+	transition: all 0.1s ease-in-out 0s;
+}
