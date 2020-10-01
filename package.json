@@ -1,5 +1,5 @@
 {
-	"name": "todo-app",
+	"name": "react-trello-clone",
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
@@ -19,7 +19,8 @@
 		"styled-components": "^5.2.0"
 	},
 	"scripts": {
-		"start": "HTTPS=true SSL_CRT_FILE=./.cert/cert.pem SSL_KEY_FILE=./.cert/key.pem react-scripts start",
+		"start": "react-scripts start",
+		"startSSL": "HTTPS=true SSL_CRT_FILE=./.cert/cert.pem SSL_KEY_FILE=./.cert/key.pem react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject"
