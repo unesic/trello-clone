@@ -1,0 +1,23 @@
+.CommentContainer {
+	position: relative;
+	border-radius: 3px;
+	padding: 12px;
+	background-color: var(--base-solid-0);
+}
+
+.CommentContainer + .CommentContainer {
+	margin-top: 8px;
+}
+
+.CommentContainer:hover [class*="ButtonDelete"]:not(:hover) {
+	opacity: 0.5;
+}
+
+.CommentTextWrapper {
+	padding-right: 30px;
+}
+
+.CommentText {
+	padding: 4px;
+	color: var(--base-solid-1);
+}

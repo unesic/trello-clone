@@ -1,0 +1,50 @@
+.DetailsPopup {
+	--offset-Y: 10vh;
+	left: calc(50% - 300px);
+	width: 600px;
+	max-height: calc(100vh - var(--offset-Y) * 2);
+	overflow-y: auto;
+	border-radius: 3px;
+}
+
+.DetailsPopup[class*="transition-enter"] {
+	top: -100vh;
+}
+
+.DetailsPopup[class*="transition-enter-active"],
+.DetailsPopup[class*="transition-enter-done"] {
+	top: var(--offset-Y);
+}
+
+.DetailsPopup[class*="transition-exit"] {
+	top: var(--offset-Y);
+}
+
+.DetailsPopup[class*="transition-exit-active"],
+.DetailsPopup[class*="transition-exit-done"] {
+	top: -100vh;
+}
+
+.ButtonClose {
+	cursor: pointer;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	display: flex;
+
+	background: unset;
+	border: unset;
+	outline: unset;
+
+	border-radius: 3px;
+	padding: 5px;
+	transition: all 0.1s ease-in 0s;
+
+	font-size: 1.5rem;
+	color: var(--base-solid-1);
+}
+
+.ButtonClose:hover {
+	color: var(--text-solid-3);
+	background-color: var(--btn-bg-2);
+}

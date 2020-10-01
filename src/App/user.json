@@ -1,6 +1,14 @@
-{
-	"id": "shoune",
-	"username": "theOGshoune",
-	"name": "Shone Shintj",
-	"image": "https://scontent.fbeg4-1.fna.fbcdn.net/v/t1.15752-9/48395807_270041317027173_6048994414557134848_n.png?_nc_cat=107&_nc_sid=ae9488&_nc_ohc=OXe9Yd1cFT8AX8QN4ai&_nc_ht=scontent.fbeg4-1.fna&oh=d027267d7e1b5f5d8b089a0ab457e7d0&oe=5F99B06D"
-}
+[
+	{
+		"id": "shoune",
+		"username": "theOGshoune",
+		"name": "Shone Shintj",
+		"image": "https://scontent.fbeg4-1.fna.fbcdn.net/v/t1.15752-9/48395807_270041317027173_6048994414557134848_n.png?_nc_cat=107&_nc_sid=ae9488&_nc_ohc=OXe9Yd1cFT8AX8QN4ai&_nc_ht=scontent.fbeg4-1.fna&oh=d027267d7e1b5f5d8b089a0ab457e7d0&oe=5F99B06D"
+	},
+	{
+		"id": "other-user",
+		"username": "johnDoe",
+		"name": "John Doe",
+		"image": "https://www.handwerk.com/drimage/1120/630/3277/hide-pain-harold-title-red%20-web.jpg"
+	}
+]

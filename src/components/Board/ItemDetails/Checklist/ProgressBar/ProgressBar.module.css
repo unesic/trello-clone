@@ -1,0 +1,24 @@
+.ProgressBarContainer {
+	display: flex;
+	align-items: center;
+	margin-bottom: 14px;
+}
+
+.ProgressPercentage {
+	margin-right: 8px;
+	color: var(--text-solid-1);
+}
+
+.ProgressSlider {
+	height: 100%;
+	background-color: var(--green);
+	transition: all 0.1s ease-in-out 0s;
+}
+
+.ProgressBarWrapper {
+	width: 100%;
+	height: 4px;
+	border-radius: 2px;
+	overflow: hidden;
+	background-color: var(--bg-solid-0);
+}
