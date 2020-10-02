@@ -1,0 +1,39 @@
+.NavWrapper {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 9999;
+	background-color: var(--bg-solid-1);
+}
+
+.NavContainer {
+	padding: 4px;
+}
+
+.Navbar {
+	display: flex;
+	list-style: none;
+}
+
+.Navitem {
+	padding: 4px;
+}
+
+.Navitem a {
+	display: block;
+	border-bottom: 2px solid transparent;
+	border-radius: 3px;
+	padding: 6px 12px;
+	color: var(--base-solid-1);
+	transition: all 0.1s ease-in-out 0s;
+}
+
+.Navlink:hover,
+.Navlink.Active {
+	background-color: var(--base-solid-0);
+}
+
+.Navlink.Active {
+	border-color: var(--green);
+}

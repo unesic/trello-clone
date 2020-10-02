@@ -85,18 +85,16 @@ const App = () => {
 	};
 
 	const styles = {
-		height: "100%",
 		backgroundImage: `url(${appStyle.backgroundImage.url})`,
 		backgroundColor:
 			appStyle.backgroundColor !== "unset"
 				? appStyle.backgroundColor
 				: null,
 	};
-	const classes = [
-		AppContainer,
-		appStyle.mode,
-		appStyle.transparency ? "transparent" : "",
-	].join(" ");
+	document.getElementById("root").classList = appStyle.mode;
+	const classes = [AppContainer, appStyle.transparency ? "transparent" : ""]
+		.join(" ")
+		.trim();
 
 	return (
 		<div className={classes} style={styles}>
