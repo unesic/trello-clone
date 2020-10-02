@@ -1,4 +1,4 @@
-import React from "react";
+import React from "reactn";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import Navigation from "./Navigation";
@@ -9,7 +9,6 @@ const Router = () => {
 	return (
 		<BrowserRouter>
 			<Navigation />
-
 			<Switch>
 				<Route exact path="/" component={App} />
 				<Route path="/login" component={Login} />

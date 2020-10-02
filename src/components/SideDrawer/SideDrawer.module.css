@@ -49,11 +49,11 @@
 }
 
 .SideDrawerModal {
-	top: 0;
+	bottom: 0;
 	right: 0;
 	width: 400px;
 	max-width: 95vw;
-	height: 100%;
+	height: calc(100% - 50px);
 	overflow-y: scroll;
 	transition: all 0.2s ease-in-out 0s;
 }

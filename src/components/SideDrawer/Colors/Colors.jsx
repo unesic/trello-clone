@@ -1,7 +1,6 @@
-import React, { useContext } from "react";
+import React, { useGlobal } from "reactn";
 import { FiX } from "react-icons/fi";
 
-import { AppContext } from "../../../App";
 import {
 	ColorsWrapper,
 	Title,
@@ -13,8 +12,20 @@ import {
 	ColorCode,
 } from "./Colors.module.css";
 
-const Colors = ({ colors, onColorPick }) => {
-	const context = useContext(AppContext);
+const COLORS = [
+	"#264653",
+	"#2a9d8f",
+	"#e9c46a",
+	"#f4a261",
+	"#e76f51",
+	"#006d77",
+	"#4ecdc4",
+	"#ffffff",
+	"#000000",
+];
+
+const Colors = () => {
+	const [backgroundColor, setBackgroundColor] = useGlobal("backgroundColor");
 
 	return (
 		<div className={ColorsWrapper}>
@@ -23,23 +34,24 @@ const Colors = ({ colors, onColorPick }) => {
 				<div className={SingleColorWrapper}>
 					<button
 						className={`${SingleColor} ${ColorUnset}`}
-						onClick={() => onColorPick("unset")}
+						onClick={() => setBackgroundColor("unset")}
 					>
 						<FiX />
 					</button>
 				</div>
-				{colors.map((color, i) => (
+				{COLORS.map((color, i) => (
 					<div key={i} className={SingleColorWrapper}>
 						<button
 							style={{ backgroundColor: color }}
 							className={`${SingleColor} ${
-								context.appStyle.backgroundColor === color
-									? Current
-									: ""
+								backgroundColor === color ? Current : ""
 							}`}
-							onClick={() => onColorPick(color)}
+							onClick={() => setBackgroundColor(color)}
 						>
-							<span className={ColorCode} style={{ color: color }}>
+							<span
+								className={ColorCode}
+								style={{ color: color }}
+							>
 								{color}
 							</span>
 						</button>

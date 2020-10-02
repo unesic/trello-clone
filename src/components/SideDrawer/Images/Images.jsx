@@ -1,6 +1,4 @@
-import React, { useEffect, useRef, useReducer, useContext } from "react";
-
-import { AppContext } from "../../../App";
+import React, { useEffect, useRef, useReducer, useGlobal } from "reactn";
 
 import dummyData from "./images-data.json";
 import reducer from "./Images.reducer";
@@ -23,10 +21,15 @@ import MainImages from "./lib/MainImages";
 import { Instruction } from "../../../ui/styledComponents";
 import Spinner from "../../../ui/Spinner";
 
-import { ImagesWrapper, ImagesContainer, LoadingContainer } from "./Images.module.css";
+import {
+	ImagesWrapper,
+	ImagesContainer,
+	LoadingContainer,
+} from "./Images.module.css";
 
-const Images = ({ onImagePick }) => {
-	const context = useContext(AppContext);
+const Images = () => {
+	const [backgroundImage, setBackgroundImage] = useGlobal("backgroundImage");
+
 	const [state, dispatch] = useReducer(reducer, {
 		images: dummyData,
 		snapshotImages: [],
@@ -45,7 +48,7 @@ const Images = ({ onImagePick }) => {
 	// const getRandom = useGetRandom(dispatch);
 	const search = useSearch(dispatch, state);
 
-	const pickImage = usePickImage(dispatch, state, onImagePick);
+	const pickImage = usePickImage(dispatch, state, setBackgroundImage);
 	const toggleFavoriteHandler = useToggleFavorite(dispatch, state);
 
 	const onFocusHandler = useOnFocus(dispatch, state);
@@ -110,7 +113,7 @@ const Images = ({ onImagePick }) => {
 							images={state.favImages}
 							click={pickImage}
 							search={state.searchResults}
-							currentImage={context.appStyle.backgroundImage.id}
+							currentImage={backgroundImage.id}
 							toggleFavorite={toggleFavoriteHandler}
 						/>
 						<PreviousImages
@@ -132,7 +135,9 @@ const Images = ({ onImagePick }) => {
 						{state.loading ? (
 							<Spinner />
 						) : (
-							<Instruction>Type search term and press enter...</Instruction>
+							<Instruction>
+								Type search term and press enter...
+							</Instruction>
 						)}
 					</div>
 				)}

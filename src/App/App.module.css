@@ -1,8 +1,4 @@
 .AppContainer {
 	height: 100%;
-	background-position: center center;
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-color: var(--base-solid-0);
-	padding-top: 6px;
+	padding-top: 56px;
 }

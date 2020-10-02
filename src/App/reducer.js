@@ -4,8 +4,6 @@ const reducer = (state, action) => {
 			return {
 				backgroundImage: action.payload.backgroundImage,
 				backgroundColor: action.payload.backgroundColor,
-				transparency: action.payload.transparency,
-				mode: action.payload.mode,
 			};
 		case "SET_BACKGROUND_IMAGE":
 			return {
@@ -16,16 +14,6 @@ const reducer = (state, action) => {
 			return {
 				...state,
 				backgroundColor: action.payload,
-			};
-		case "SET_TRANSPARENCY":
-			return {
-				...state,
-				transparency: action.payload,
-			};
-		case "SET_MODE":
-			return {
-				...state,
-				mode: action.payload,
 			};
 		default:
 			return state;

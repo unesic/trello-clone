@@ -3,15 +3,12 @@ import React, {
 	useState,
 	useEffect,
 	useRef,
-	useReducer,
 	useCallback,
-} from "react";
+	useGlobal,
+} from "reactn";
 import { DragDropContext } from "react-beautiful-dnd";
 
-import dummyUser from "./App/user.json";
-
 import useToggle from "./hooks/useToggle";
-import reducer from "./App/reducer";
 import reorder from "./App/App.helper";
 
 import Lists from "./components/Board/Lists/Lists";
@@ -23,34 +20,17 @@ import { AppContainer } from "./App/App.module.css";
 export const AppContext = createContext();
 
 const App = () => {
-	const [user, setUser] = useState(dummyUser[0]);
+	const [user, setUser] = useGlobal("user");
 
 	const [lists, setLists] = useState([]);
 	const [dragging, setDragging] = useState();
 	const [clickedItem, setClickedItem] = useState();
 	const [details, toggleDetails] = useToggle(false);
-	const [appStyle, dispatch] = useReducer(reducer, {
-		backgroundImage: {
-			id: undefined,
-			url: undefined,
-		},
-		backgroundColor: undefined,
-		transparency: false,
-		mode: "light",
-	});
 	const listsRef = useRef(false);
-	const styleRef = useRef(false);
 
 	useEffect(() => {
 		const localLists = JSON.parse(localStorage.getItem("lists"));
-		const localStyle = JSON.parse(localStorage.getItem("appStyle"));
-
 		if (localLists && localLists !== null) setLists(localLists);
-		if (localStyle && localStyle !== null)
-			dispatch({
-				type: "SET_ALL",
-				payload: { ...localStyle },
-			});
 	}, []);
 
 	useEffect(() => {
@@ -58,13 +38,6 @@ const App = () => {
 			localStorage.setItem("lists", JSON.stringify(lists));
 		else listsRef.current = true;
 	}, [lists]);
-
-	useEffect(() => {
-		if (styleRef.current)
-			localStorage.setItem("appStyle", JSON.stringify(appStyle));
-		else styleRef.current = true;
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [JSON.stringify(appStyle)]);
 
 	useEffect(() => {
 		if (!details) setClickedItem(null);
@@ -84,20 +57,8 @@ const App = () => {
 		setDragging(null);
 	};
 
-	const styles = {
-		backgroundImage: `url(${appStyle.backgroundImage.url})`,
-		backgroundColor:
-			appStyle.backgroundColor !== "unset"
-				? appStyle.backgroundColor
-				: null,
-	};
-	document.getElementById("root").classList = appStyle.mode;
-	const classes = [AppContainer, appStyle.transparency ? "transparent" : ""]
-		.join(" ")
-		.trim();
-
 	return (
-		<div className={classes} style={styles}>
+		<div className={AppContainer}>
 			<DragDropContext onDragStart={onDragStart} onDragEnd={onDragEnd}>
 				<AppContext.Provider
 					value={{
@@ -108,8 +69,6 @@ const App = () => {
 						dragging,
 						clickedItem,
 						setClickedItem,
-						appStyle,
-						dispatch,
 						details,
 						toggleDetails,
 					}}

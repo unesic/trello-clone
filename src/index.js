@@ -1,13 +1,25 @@
-import React from "react";
+import React, { setGlobal } from "reactn";
 import ReactDOM from "react-dom";
 import "./index.css";
-// import App from "./App";
-import Router from "./Router";
+import Main from "./Main";
 import * as serviceWorker from "./serviceWorker";
+
+import dummyUser from "./App/user.json";
+
+setGlobal({
+	user: { ...dummyUser[0] },
+	theme: "light",
+	transparency: false,
+	backgroundImage: {
+		id: null,
+		url: null,
+	},
+	backgroundColor: null,
+});
 
 ReactDOM.render(
 	<React.StrictMode>
-		<Router />
+		<Main />
 	</React.StrictMode>,
 	document.getElementById("root")
 );

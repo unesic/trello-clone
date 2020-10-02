@@ -180,7 +180,7 @@
 
 .FavoriteButton:hover,
 .FavoriteButton.IsFavorite {
-	background-color: var(--bg-solid-4);
+	background-color: var(--blue11);
 	color: var(--green);
 	opacity: 1;
 }
