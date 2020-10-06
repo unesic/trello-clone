@@ -1,0 +1,77 @@
+.ButtonToggle {
+	outline: unset;
+	border: unset;
+	cursor: pointer;
+
+	position: fixed;
+	bottom: 30px;
+	right: 20px;
+	display: flex;
+
+	padding: 12px;
+	border-radius: 50%;
+	background-color: var(--bg-solid-2);
+	box-shadow: var(--shadow-2);
+
+	font-size: 1.6rem;
+	color: var(--grey);
+
+	transition: all 0.2s ease-in 0s;
+}
+
+.ButtonToggle:hover {
+	background-color: var(--bg-solid-3);
+	transform: scale(1.1) rotate(90deg);
+}
+
+.ButtonClose {
+	cursor: pointer;
+	position: absolute;
+	top: 10px;
+	right: 20px;
+	display: flex;
+
+	background: unset;
+	border: unset;
+	outline: unset;
+
+	border-radius: 3px;
+	padding: 5px;
+	transition: all 0.1s ease-in 0s;
+
+	font-size: 1.5rem;
+	color: var(--base-solid-1);
+}
+
+.ButtonClose:hover {
+	color: var(--text-solid-3);
+	background-color: var(--btn-bg-2);
+}
+
+.SideDrawerModal {
+	bottom: 0;
+	right: 0;
+	width: 400px;
+	max-width: 95vw;
+	height: calc(100% - 50px);
+	overflow-y: scroll;
+	transition: all 0.2s ease-in-out 0s;
+}
+
+.SideDrawerModal[class*="transition-enter"] {
+	transform: translateX(100%);
+}
+
+.SideDrawerModal[class*="transition-enter-active"],
+.SideDrawerModal[class*="transition-enter-done"] {
+	transform: translateX(0);
+}
+
+.SideDrawerModal[class*="transition-exit"] {
+	transform: translateX(0);
+}
+
+.SideDrawerModal[class*="transition-exit-active"],
+.SideDrawerModal[class*="transition-exit-done"] {
+	transform: translateX(100%);
+}
