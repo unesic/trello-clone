@@ -1,0 +1,75 @@
+.NewCommentWrapper {
+	margin: 14px 0 0;
+}
+
+.NewCommentForm {
+	display: flex;
+	align-items: flex-start;
+}
+
+.NewCommentTitle {
+	margin: 0 0 14px;
+	padding: 0 8px;
+	font-size: 1rem;
+	color: var(--base-solid-1);
+}
+
+.FormTextContainer {
+	position: relative;
+	flex: 1 0;
+	border-radius: 3px;
+	margin-left: 8px;
+	padding: 0 4px 8px;
+	transition: all 0.1s linear 0s;
+}
+
+.FormTextContainer:focus-within {
+	padding-top: 4px;
+	padding-bottom: 40px;
+	background-color: var(--base-solid-0);
+}
+
+textarea.FormInput {
+	margin: 0;
+	color: var(--base-solid-1);
+}
+
+.FormTextContainer:focus-within .FormInput {
+	background-color: var(--input-bg-2);
+}
+
+.FormButton {
+	position: absolute;
+	bottom: 8px;
+
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	border: 1px solid transparent;
+	background: var(--bg-solid-5);
+	outline: unset;
+	font-size: 1rem;
+	line-height: 1rem;
+
+	border-radius: 3px;
+	padding: 8px 22px 8px 20px;
+	color: var(--text-solid-3);
+	visibility: hidden;
+	opacity: 0;
+	transform: translate(100%, 28px);
+	transition: all 0.1s ease-in 0s;
+}
+
+.FormButton svg {
+	margin-right: 4px;
+}
+
+.FormButton:hover {
+	border-color: var(--blue10);
+}
+
+.FormTextContainer:focus-within .FormButton {
+	visibility: visible;
+	opacity: 1;
+	transform: translate(0, 0);
+}

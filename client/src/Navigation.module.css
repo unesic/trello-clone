@@ -1,0 +1,60 @@
+.NavWrapper {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 9999;
+
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	background-color: var(--bg-solid-1);
+}
+
+.NavWrapper + div {
+	padding-top: 56px;
+}
+
+.NavContainer {
+	flex: 1 0 auto;
+	padding: 4px;
+}
+
+.Navbar {
+	display: flex;
+	list-style: none;
+}
+
+.Navitem {
+	padding: 4px;
+}
+
+.Navitem a {
+	display: block;
+	border-bottom: 2px solid transparent;
+	border-radius: 3px;
+	padding: 6px 12px;
+	color: var(--base-solid-1);
+	transition: all 0.1s ease-in-out 0s;
+}
+
+.Navlink:hover,
+.Navlink.Active {
+	background-color: var(--base-solid-0);
+}
+
+.Navlink.Active {
+	border-color: var(--green);
+}
+
+.UserContainer {
+	display: flex;
+	align-items: center;
+	padding: 0 8px;
+}
+
+.UserName {
+	margin-right: 8px;
+	font-size: 1rem;
+	color: var(--base-solid-1);
+}

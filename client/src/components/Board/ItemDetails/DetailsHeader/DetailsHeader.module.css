@@ -1,0 +1,19 @@
+.HeaderContainer {
+	padding: 0 8px;
+	margin-bottom: 16px;
+}
+
+.Name {
+	margin-bottom: 8px;
+	color: var(--text-solid-3);
+	font-size: 1.4rem;
+	line-height: 1.6rem;
+	font-weight: 600;
+	width: 90%;
+}
+
+.Description {
+	font-size: 1rem;
+	line-height: 1.2rem;
+	color: var(--text-solid-1);
+}
