@@ -1,0 +1,105 @@
+.CreateButtonContainer {
+	display: flex;
+	justify-content: center;
+	width: 80%;
+	margin: 12px auto;
+	padding: 16px 0;
+}
+
+.CreateButton {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	outline: unset;
+	border: unset;
+	border-radius: 3px;
+	padding: 12px 16px 12px 13px;
+	background-color: var(--bg-solid-1);
+
+	font-size: 1rem;
+	color: var(--base-solid-1);
+}
+
+.CreateButton::after {
+	content: "";
+	position: absolute;
+	bottom: -2px;
+	left: 0;
+	z-index: -1;
+	width: 0;
+	height: 6px;
+	border-radius: 3px;
+	background-color: var(--green);
+	transition: all 0.1s ease-in-out 0s;
+}
+
+.CreateButton:hover::after {
+	width: 100%;
+}
+
+.CreateButton svg {
+	margin-right: 8px;
+	font-size: 1rem;
+}
+
+.NewBoardModal {
+	top: 40%;
+	left: 50%;
+	border-radius: 3px;
+	transform: translate(-50%, -50%);
+}
+
+.NewBoardTitle {
+	margin: 4px 0 24px;
+	padding: 0 8px;
+	color: var(--base-solid-1);
+}
+
+.NewBoardForm {
+	padding: 8px 0;
+}
+
+input.InputField {
+	margin: 0;
+	padding: 8px;
+	color: var(--base-solid-1);
+	border-bottom: 2px solid transparent;
+}
+
+input.InputField:focus,
+input.InputField[class*="hasValue"] {
+	border-color: var(--green);
+}
+
+.SubmitButton {
+	position: relative;
+	border: unset;
+	outline: unset;
+
+	display: flex;
+	margin: 0 auto;
+	border-radius: 3px;
+	padding: 12px 16px;
+	background-color: var(--input-bg-2);
+	font-weight: 600;
+	color: var(--base-solid-1);
+}
+
+.SubmitButton::after {
+	content: "";
+	position: absolute;
+	bottom: -2px;
+	left: 0;
+	z-index: -1;
+	width: 0;
+	height: 6px;
+	border-radius: 3px;
+	background-color: var(--green);
+	transition: all 0.1s ease-in-out 0s;
+}
+
+.SubmitButton:hover::after {
+	width: 100%;
+}

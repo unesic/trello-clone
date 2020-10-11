@@ -15,11 +15,13 @@ const SideDrawer = () => {
 	const [modalVisible, setModalVisible] = useState(false);
 
 	const openModal = useCallback(() => {
+		document.body.classList.add("modal-open");
 		setModalVisible(true);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [modalVisible]);
 
 	const closeModal = useCallback(() => {
+		document.body.classList.remove("modal-open");
 		setModalVisible(false);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [modalVisible]);

@@ -19,6 +19,10 @@
 	transition: all 0.2s ease-in 0s;
 }
 
+body[class*="modal-open"] .ButtonToggle {
+	bottom: 15px;
+}
+
 .ButtonToggle:hover {
 	background-color: var(--bg-solid-3);
 	transform: scale(1.1) rotate(90deg);
@@ -53,7 +57,7 @@
 	right: 0;
 	width: 400px;
 	max-width: 95vw;
-	height: calc(100% - 50px);
+	height: calc(100% - 42px);
 	overflow-y: scroll;
 	transition: all 0.2s ease-in-out 0s;
 }

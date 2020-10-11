@@ -1,66 +1,20 @@
 .BoardsContainer {
+}
+
+.BoardsWrapper {
 	display: flex;
 	flex-wrap: wrap;
+	margin-bottom: 16px;
 	padding: 0 8px;
 }
 
-.SingleBoard {
-	position: relative;
-	flex: 0 0 min(32%, 250px);
-	margin: 0 16px 16px 0;
-	max-width: min(32%, 250px);
-	border-radius: 3px;
-	overflow: hidden;
-	background-color: var(--bg-solid-1);
+.BoardsWrapper:not(:last-child) {
+	border-bottom: var(--border-bot);
 }
 
-.BoardLink {
-	display: block;
-}
-
-.BoardLink::before {
-	content: "";
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.2);
-	visibility: hidden;
-	opacity: 0;
-	transition: all 0.1s ease-in-out 0s;
-}
-
-.BoardLink:hover::before {
-	visibility: visible;
-	opacity: 1;
-}
-
-.BoardImage {
-	display: block;
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-	object-position: center center;
-}
-
-.BoardTitle {
-	position: absolute;
-	top: 12px;
-	left: 12px;
-	z-index: 1;
-	font-size: 0.9rem;
-	text-transform: uppercase;
+.WrapperTitle {
+	flex: 1 0 100%;
+	margin-bottom: 12px;
+	padding-left: 8px;
 	color: var(--base-solid-1);
-}
-
-input.InputField {
-	margin: 0;
-	padding: 8px;
-	color: var(--base-solid-1);
-	border-bottom: 2px solid transparent;
-}
-
-input.InputField:focus {
-	border-color: var(--green);
 }

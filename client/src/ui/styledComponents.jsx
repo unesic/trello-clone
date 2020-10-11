@@ -3,14 +3,10 @@ import styled from "styled-components";
 export const Fieldset = styled.fieldset`
 	position: relative;
 	border: unset;
-	padding: 0 8px;
+	margin-bottom: 34px;
 
 	&:focus {
 		width: 100%;
-	}
-
-	& + fieldset {
-		margin-top: 24px;
 	}
 `;
 
@@ -46,9 +42,11 @@ export const Input = styled.input`
 		opacity: 1;
 	}
 
-	&:focus ~ label {
+	&:focus ~ label,
+	&.hasValue ~ label {
 		top: -35%;
-		font-size: 0.8em;
+		left: 8px;
+		font-size: 0.9em;
 		font-weight: 600;
 		opacity: 1;
 	}

@@ -11,6 +11,7 @@ const EditableText = ({
 	isOwner = true,
 	placeholder,
 	children,
+	required = false
 }) => {
 	const [text, setText] = useState(children);
 	const [snapshot, setSnapshot] = useState(children);
@@ -24,7 +25,8 @@ const EditableText = ({
 		setEditing,
 		onSave,
 		type,
-		idx
+		idx,
+		required
 	);
 
 	useEffect(() => {

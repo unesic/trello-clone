@@ -4,7 +4,7 @@ import { useFeathers } from "figbird";
 
 import PrivateRoute from "./PrivateRoute";
 
-import Navigation from "./Navigation";
+import Navigation from "./components/Navigation/Navigation";
 import Login from "./pages/Login";
 import Boards from "./pages/Boards";
 import Board from "./pages/Board";

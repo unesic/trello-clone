@@ -1,0 +1,64 @@
+.TemplateContainer {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	border-radius: 3px;
+	padding: 40px;
+	width: 400px;
+	max-width: 90%;
+	background-color: var(--bg-solid-0);
+	box-shadow: var(--shadow-2);
+}
+
+.TemplateTitle {
+	margin-bottom: 2rem;
+	color: var(--base-solid-1);
+}
+
+.AppTitle {
+	color: var(--green);
+}
+
+.ButtonWrapper {
+	position: relative;
+}
+
+.ButtonWrapper::before {
+	--bs: 2px;
+	--pos: calc(-1 * var(--bs));
+
+	content: "";
+	position: absolute;
+	z-index: 0;
+	top: var(--pos);
+	left: var(--pos);
+	bottom: var(--pos);
+	right: var(--pos);
+	border-radius: 3px;
+	background-color: var(--green);
+	filter: brightness(0.8) opacity(0);
+	transition: all 0.2s ease-in-out 0s;
+}
+
+.ButtonWrapper:hover::before {
+	filter: brightness(1) opacity(1);
+}
+
+.LoginButton {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 3px;
+	padding: 12px 18px;
+	width: fit-content;
+	background-color: var(--white);
+	font-size: 1rem;
+	font-weight: 600;
+	color: var(--base-solid-0);
+}
+
+.LoginButton svg {
+	margin-right: 8px;
+	font-size: 1.6rem;
+}

@@ -2,6 +2,7 @@
 	position: relative;
 	display: flex;
 	align-items: flex-start;
+	flex-wrap: wrap;
 	margin-bottom: 8px;
 	padding: 6px 8px;
 	border-radius: 3px;
@@ -90,4 +91,22 @@
 .SingleItem.ActiveItem .ButtonOptions {
 	background-color: var(--bg-solid-1);
 	opacity: 1;
+}
+
+.ItemChecklist {
+	flex: 1 0 100%;
+	margin-top: 4px;
+	padding-left: 6px;
+	display: flex;
+	align-items: center;
+	color: var(--base-solid-1);
+}
+
+.ItemChecklist svg {
+	margin-right: 4px;
+}
+
+.ItemChecklist.Completed {
+	color: var(--green);
+	text-decoration: line-through;
 }

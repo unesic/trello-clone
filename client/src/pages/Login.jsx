@@ -1,6 +1,8 @@
 import React, { useEffect, useGlobal } from "reactn";
 import { useFeathers } from "figbird";
 
+import LoginTemplate from "../components/LoginTemplate/LoginTemplate";
+
 const Login = ({ history, location }) => {
 	const [, setUser] = useGlobal("user");
 	const feathers = useFeathers();
@@ -12,7 +14,7 @@ const Login = ({ history, location }) => {
 
 			if (user) {
 				const { state } = location;
-				const prevPage = state ? state.from.pathname : "/";
+				const prevPage = state ? state.from.pathname : "/boards";
 
 				history.push(prevPage);
 			}
@@ -36,7 +38,7 @@ const Login = ({ history, location }) => {
 				height: "100%",
 			}}
 		>
-			<a href="http://localhost:3030/oauth/google">Login with google</a>
+			<LoginTemplate />
 		</div>
 	);
 };
