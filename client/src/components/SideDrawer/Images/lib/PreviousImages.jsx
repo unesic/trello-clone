@@ -22,6 +22,7 @@ const PreviousImages = ({
 						image={image}
 						current={image.id === currentImage}
 						toggleFavorite={toggleFavorite}
+						hasFavorite
 					/>
 				))}
 			</div>

@@ -120,6 +120,9 @@
 }
 
 .SingleImageInner {
+	outline: unset;
+	border: unset;
+	background: unset;
 	display: block;
 	height: 100%;
 	border-radius: 3px;

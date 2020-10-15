@@ -3,10 +3,14 @@ import styled from "styled-components";
 export const Fieldset = styled.fieldset`
 	position: relative;
 	border: unset;
-	margin-bottom: 34px;
+	margin-bottom: 14px;
 
 	&:focus {
 		width: 100%;
+	}
+
+	& + fieldset {
+		margin-top: 20px;
 	}
 `;
 
