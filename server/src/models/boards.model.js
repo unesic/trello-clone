@@ -32,6 +32,11 @@ module.exports = function (app) {
 				default:
 					"{'theme':'dark','transparency':'','backgroundImage':'','backgroundColor':''}",
 			},
+			tags: {
+				type: String,
+				required: false,
+				default: "",
+			},
 		},
 		{
 			timestamps: true,

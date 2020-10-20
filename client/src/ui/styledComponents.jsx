@@ -52,6 +52,7 @@ export const Input = styled.input`
 		left: 8px;
 		font-size: 0.9em;
 		font-weight: 600;
+		color: var(--text-solid-1);
 		opacity: 1;
 	}
 `;
@@ -80,4 +81,10 @@ export const Instruction = styled.p`
 	padding-left: 1rem;
 	color: var(--text-solid-3);
 	opacity: 0.5;
+`;
+
+export const SidebarTitle = styled.h4`
+	margin: 4px 0 14px;
+	padding: 0 8px;
+	color: var(--base-solid-1);
 `;

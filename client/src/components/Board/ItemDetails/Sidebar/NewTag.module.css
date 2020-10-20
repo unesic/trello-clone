@@ -1,0 +1,67 @@
+.NewTagContainer {
+
+}
+
+.Title {
+	margin: 4px 0 14px;
+	padding: 0 8px;
+	color: var(--base-solid-1);
+}
+
+.NewTagForm {
+	display: flex;
+	justify-content: center;
+	margin-top: 12px;
+}
+
+.NewTagForm .FormFieldset {
+	margin: 0;
+}
+
+.NewTagForm .FormInput {
+	margin: 0;
+	padding: 4px 8px;
+	color: var(--base-solid-1);
+}
+
+.NewTagForm .FormFieldset:first-child .FormInput,
+.NewTagForm .FormFieldset + .FormFieldset .FormInput {
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.NewTagForm .FormFieldset + .FormFieldset .FormInput {
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+.NewTagForm .FormInput[class*="hasValue"] {
+	box-shadow: inset 0 -1px 0 0 var(--green);
+}
+
+.NewTagForm .FormLabel {
+	left: 8px;
+	font-size: 0.9em;
+}
+
+.SubmitButton {
+	border: unset;
+	background: var(--base-solid-0);
+	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;
+	padding: 0 8px;
+	color: var(--base-solid-1);
+	transition: all 0.1s ease-in-out 0s;
+}
+
+.SubmitButton:disabled {
+	filter: grayscale(0.6) brightness(0.6);
+}
+
+.SubmitButton:hover:not(:disabled) {
+	background-color: var(--bg-solid-0);
+}
+
+.Enabled {
+	box-shadow: inset 0 -1px 0 0 var(--green);
+}

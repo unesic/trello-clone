@@ -24,6 +24,58 @@
 	background-color: var(--bg-solid-0);
 }
 
+.ItemTags {
+	display: flex;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+	list-style: none;
+	margin-left: 8px;
+	width: 100%;
+}
+
+.ItemTag {
+	cursor: default;
+	position: relative;
+	margin: 0 8px 8px 0;
+	border-bottom: var(--border-bot-1);
+	border-radius: 4px;
+	width: 40px;
+	height: 8px;
+	transition: all 0.1s ease-in-out 0s;
+}
+
+.ItemTag:hover {
+	z-index: 1;
+	width: 60px;
+	filter: brightness(1.2);
+}
+
+.TagName {
+	position: absolute;
+	top: 100%;
+	left: 100%;
+	transform: translate(8px, -50%);
+
+	border-radius: 3px;
+	padding: 4px 8px;
+	background-color: var(--bg-solid-0);
+	box-shadow: var(--shadow-1);
+	min-width: 60px;
+	width: max-content;
+	max-width: 120px;
+
+	color: var(--base-solid-1);
+
+	opacity: 0;
+	visibility: hidden;
+	transition: all 0.1s ease-in-out 0s;
+}
+
+.ItemTag:hover .TagName {
+	opacity: 1;
+	visibility: visible;
+}
+
 .Name {
 	cursor: pointer;
 	flex: 1 0;

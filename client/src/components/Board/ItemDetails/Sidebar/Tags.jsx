@@ -1,56 +1,120 @@
-import React, { useState } from "react";
+import React, { useState, useGlobal, useEffect } from "reactn";
+import { useFeathers } from "figbird";
+import { useParams } from "react-router-dom";
+import styled from "styled-components";
 
+import * as dataParser from "../../../../hooks/dataParser";
+import { Instruction, SidebarTitle } from "../../../../ui/styledComponents";
 import Tag from "./Tag";
+import NewTag from "./NewTag";
 
-const Tags = () => {
-	const [tags, setTags] = useState([]);
-	const [availableTags, setAvailableTags] = useState([
-		{
-			id: "tag-id-1",
-			title: "MUST DO ASAP",
-			color: "var(--green)",
-		},
-		{
-			id: "tag-id-2",
-			title: "Super high priority",
-			color: "var(--red)",
-		},
-		{
-			id: "tag-id-3",
-			title: "Tag 3",
-			color: "var(--white)",
-		},
-		{
-			id: "tag-id-4",
-			title: "Tag 4",
-			color: "var(--black)",
-		},
-	]);
+const Container = styled.div`
+	margin-bottom: 16px;
+	border-bottom: var(--border-bot);
+	padding-bottom: 8px;
+`;
+
+const Tags = ({ itemTags, dispatch }) => {
+	const { id: boardId } = useParams();
+	const service = useFeathers().service("boards");
+	const [user] = useGlobal("user");
+	const [boardTags, setBoardTags] = useGlobal("boardTags");
+
+	const [tags, setTags] = useState(
+		itemTags && itemTags.length ? [...itemTags] : []
+	);
+	const [availableTags, setAvailableTags] = useState([...boardTags]);
+
+	useEffect(() => {
+		if (itemTags && itemTags.length) {
+			setTags([...itemTags]);
+		} else {
+			setTags([]);
+		}
+	}, [itemTags]);
+
+	useEffect(() => {
+		if (tags && tags.length) {
+			const newAvailableTags = [];
+			boardTags.forEach((tag) => {
+				const idx = tags.findIndex((t) => t.id === tag.id);
+				if (idx < 0) newAvailableTags.push(tag);
+			});
+
+			setAvailableTags(newAvailableTags);
+		} else {
+			setAvailableTags([...boardTags]);
+		}
+	}, [tags]);
+
+	useEffect(() => {
+		const newAvailableTags = [];
+		boardTags.forEach((tag) => {
+			const idx = tags.findIndex((t) => t.id === tag.id);
+			if (idx < 0) newAvailableTags.push(tag);
+		});
+		setAvailableTags([...newAvailableTags]);
+	}, [boardTags]);
 
 	const addTag = (tag) => {
-		const newAvailableTags = availableTags.filter((t) => t.id !== tag.id);
-		setAvailableTags(newAvailableTags);
-
-		setTags([...tags, tag]);
+		dispatch({
+			type: "SET_TAGS",
+			payload: [...tags, tag],
+		});
 	};
 
 	const removeTag = (tag) => {
-		const newTags = tags.filter((t) => t.id !== tag.id);
-		setTags(newTags);
+		dispatch({
+			type: "SET_TAGS",
+			payload: [...tags.filter((t) => t.id !== tag.id)],
+		});
+	};
 
-		setAvailableTags([...availableTags, tag]);
+	const deleteTag = (id) => {
+		const newTags = tags.filter((t) => t.id !== id);
+		dispatch({
+			type: "SET_TAGS",
+			payload: [...newTags],
+		});
+
+		const newBoardTags = boardTags.filter((tag) => tag.id !== id);
+		setBoardTags(newBoardTags);
+
+		const parsed = dataParser.toString(newTags);
+		service.patch(boardId, { tags: parsed }, { user });
 	};
 
 	return (
 		<>
-			<h4>Current</h4>
-			{tags.map((tag) => (
-				<Tag key={tag.id} clicked={removeTag} {...tag} />
-			))}
-			<h4>Availble</h4>
-			{availableTags.map((tag) => (
-				<Tag key={tag.id} clicked={addTag} {...tag} />
-			))}
+			<Container>
+				<SidebarTitle>Current</SidebarTitle>
+				{tags.length ? (
+					tags.map((tag) => (
+						<Tag
+							key={tag.id}
+							clicked={removeTag}
+							deleted={deleteTag}
+							{...tag}
+						/>
+					))
+				) : (
+					<Instruction>This item has no tags.</Instruction>
+				)}
+			</Container>
+
+			<Container>
+				<SidebarTitle>Available</SidebarTitle>
+				{availableTags.map((tag) => (
+					<Tag
+						key={tag.id}
+						clicked={addTag}
+						deleted={deleteTag}
+						{...tag}
+					/>
+				))}
+			</Container>
+
+			<NewTag tags={availableTags} />
 		</>
 	);
 };

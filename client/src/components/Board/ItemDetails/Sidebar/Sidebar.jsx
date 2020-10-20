@@ -3,11 +3,11 @@ import React from "react";
 import { SidebarContainer, Title } from "./Sidebar.module.css";
 import Tags from "./Tags";
 
-const Sidebar = () => {
+const Sidebar = ({ tags: itemTags, dispatch }) => {
 	return (
 		<aside className={SidebarContainer}>
 			<h3 className={Title}>Tags</h3>
-			<Tags />
+			<Tags itemTags={itemTags} dispatch={dispatch} />
 		</aside>
 	);
 };

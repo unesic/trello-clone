@@ -48,6 +48,7 @@ const List = ({ list: { id, name, items }, listIdx }) => {
 			done: false,
 			comments: [],
 			checklist: [],
+			tags: [],
 		});
 
 		context.setLists(newLists);

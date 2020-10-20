@@ -17,6 +17,9 @@ import {
 	ItemDone,
 	ActiveItem,
 	Dragging,
+	ItemTags,
+	ItemTag,
+	TagName,
 	Name,
 	ButtonOptions,
 	ItemChecklist,
@@ -133,6 +136,21 @@ const Item = ({ item, itemIndex, listId }) => {
 							setIcon={setStatusIcon}
 							setStatus={setStatus}
 						/>
+						{state.tags && state.tags.length ? (
+							<ul className={ItemTags}>
+								{state.tags.map((tag) => (
+									<li
+										key={tag.id}
+										className={ItemTag}
+										style={{ backgroundColor: tag.color }}
+									>
+										<span className={TagName}>
+											{tag.name}
+										</span>
+									</li>
+								))}
+							</ul>
+						) : null}
 						<EditableText
 							type="name"
 							onSave={({ text }) => {

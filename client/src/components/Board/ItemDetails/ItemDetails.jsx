@@ -9,7 +9,12 @@ import Checklist from "./Checklist/Checklist";
 import Comments from "./Comments/Comments";
 import Sidebar from "./Sidebar/Sidebar";
 
-import { DetailsPopup, ButtonClose, Main, MainInner } from "./ItemDetails.module.css";
+import {
+	DetailsPopup,
+	ButtonClose,
+	Main,
+	MainInner,
+} from "./ItemDetails.module.css";
 
 const ItemDetails = () => {
 	const context = useContext(AppContext);
