@@ -6,6 +6,7 @@
 
 .CommentsContainer {
 	padding: 4px 4px 0;
+	flex: 1 0 100%;
 }
 
 .CommentsWrapper {

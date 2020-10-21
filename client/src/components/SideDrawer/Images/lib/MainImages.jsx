@@ -15,7 +15,8 @@ import {
 const MainImages = ({
 	images,
 	click,
-	search,
+	search = false,
+	title = "",
 	searchTerm,
 	currentImage,
 	toggleFavorite,
@@ -23,7 +24,11 @@ const MainImages = ({
 	return images.length ? (
 		<div className={MainImagesWrapper}>
 			<h4 className={Title}>
-				{!search ? "Popular" : `Search results for "${searchTerm}"`}
+				{!search
+					? title !== ""
+						? title
+						: "Popular"
+					: `Search results for "${searchTerm}"`}
 			</h4>
 			<div className={Images}>
 				<div className={SingleImageWrapper}>
@@ -41,7 +46,12 @@ const MainImages = ({
 						click={click}
 						image={image}
 						current={image.id === currentImage}
-						toggleFavorite={toggleFavorite}
+						toggleFavorite={
+							typeof toggleFavorite === "function"
+								? toggleFavorite
+								: () => {}
+						}
+						hasFavorite
 					/>
 				))}
 			</div>

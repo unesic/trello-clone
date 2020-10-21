@@ -22,9 +22,17 @@ body {
 	background-color: var(--base-solid-0);
 }
 
+body.modal-open {
+	overflow-x: hidden;
+}
+
 a,
 button {
 	cursor: pointer;
+}
+
+button:disabled {
+	cursor: not-allowed;
 }
 
 #root {
@@ -61,6 +69,9 @@ button {
 	--blue13: #1e212b;
 	--blue14: #dfe0e4;
 
+	--blue15: rgba(9, 30, 66, 0.13);
+	--blue16: rgba(172, 187, 212, 0.13);
+
 	--grey0: rgba(255, 255, 255, 0.25);
 	--grey1: rgba(0, 0, 0, 0.05);
 	--grey2: rgba(0, 0, 0, 0.1);
@@ -83,8 +94,7 @@ button {
 	--blue12: #b7beccd0;
 }
 
-.light,
-body:not(.dark) {
+.light {
 	--scroll-track: rgba(0, 0, 0, 0.075);
 	--scroll-thumb: rgba(0, 0, 0, 0.3);
 
@@ -109,6 +119,8 @@ body:not(.dark) {
 	--btn-bg-2: var(--shadow-blue1);
 
 	--border-bot: 1px solid var(--shadow-blue2);
+	--border-bot-1: 1px solid var(--blue15);
+
 	--input-bg: var(--grey1);
 	--input-bg-2: var(--blue14);
 
@@ -120,7 +132,8 @@ body:not(.dark) {
 	--shadow-4: 0 0 15px var(--grey5);
 }
 
-.dark {
+.dark,
+body:not(.light) {
 	--scroll-track: rgba(255, 255, 255, 0.05);
 	--scroll-thumb: rgba(255, 255, 255, 0.2);
 
@@ -145,6 +158,8 @@ body:not(.dark) {
 	--btn-bg-2: var(--grey2);
 
 	--border-bot: 1px solid var(--blue2);
+	--border-bot-1: 1px solid var(--blue16);
+
 	--input-bg: var(--grey2);
 	--input-bg-2: var(--blue13);
 

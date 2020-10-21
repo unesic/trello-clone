@@ -8,6 +8,7 @@
 	margin: 0 0 8px;
 	padding: 4px 4px 24px;
 	border-bottom: var(--border-bot);
+	flex: 1 0 100%;
 }
 
 .ChecklistWrapper {

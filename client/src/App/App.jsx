@@ -9,6 +9,7 @@ import React, {
 import { DragDropContext } from "react-beautiful-dnd";
 
 import useToggle from "../hooks/useToggle";
+import * as dataParser from "../hooks/dataParser";
 import reorder, { setBackground } from "./App.helper";
 
 import Lists from "../components/Board/Lists/Lists";
@@ -22,14 +23,15 @@ export const AppContext = createContext();
 const App = ({
 	isOwner,
 	service,
-	board: { _id, image, name, data, style },
+	board: { _id, image, name, data, style, tags },
 }) => {
 	const [user] = useGlobal("user");
 	const [boardStyle, setBoardStyle] = useGlobal("boardStyle");
+	const [_, setBoardTags] = useGlobal("boardTags");
 
 	const [lists, setLists] = useState([]);
 	const [dragging, setDragging] = useState();
-	const [clickedItem, setClickedItem] = useState();
+	const [clickedItem, setClickedItem] = useState(null);
 	const [details, toggleDetails] = useToggle(false);
 
 	const listsRef = useRef(false);
@@ -37,13 +39,19 @@ const App = ({
 
 	useEffect(() => {
 		if (data !== "") {
-			const parsed = JSON.parse(data.replace(/'/g, '"'));
+			const parsed = dataParser.fromString(data);
+
 			parsed && parsed !== null && setLists(parsed);
 		}
 
 		if (style !== "") {
-			const parsed = JSON.parse(style.replace(/'/g, '"'));
+			const parsed = dataParser.fromString(style);
 			setBoardStyle(parsed);
+		}
+
+		if (tags !== "") {
+			const parsed = dataParser.fromString(tags);
+			setBoardTags(parsed);
 		}
 
 		return () => {
@@ -58,7 +66,7 @@ const App = ({
 
 	useEffect(() => {
 		if (listsRef.current) {
-			const parsed = JSON.stringify(lists).replace(/"/g, "'");
+			const parsed = dataParser.toString(lists);
 			service.patch(_id, { data: parsed }, { user });
 		} else listsRef.current = true;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -66,7 +74,7 @@ const App = ({
 
 	useEffect(() => {
 		if (styleRef.current) {
-			const parsed = JSON.stringify(boardStyle).replace(/"/g, "'");
+			const parsed = dataParser.toString(boardStyle);
 			service.patch(_id, { style: parsed }, { user });
 		} else styleRef.current = true;
 

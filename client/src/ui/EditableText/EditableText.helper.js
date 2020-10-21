@@ -5,7 +5,8 @@ const useHandlers = (
 	setEditing,
 	onSave,
 	type,
-	idx
+	idx,
+	required
 ) => {
 	return {
 		type: "text",
@@ -15,7 +16,11 @@ const useHandlers = (
 		onKeyPress: (e) => {
 			if (e.key === "Enter" && !e.shiftKey) {
 				setEditing(false);
-				onSave({ type, text, idx });
+				if (required && text.trim() === "") {
+					setText(snapshot);
+				} else {
+					onSave({ type, text, idx });
+				}
 			}
 		},
 

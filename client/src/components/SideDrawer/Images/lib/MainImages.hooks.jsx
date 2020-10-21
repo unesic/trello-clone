@@ -1,5 +1,6 @@
 import { useCallback } from "react";
-import axios from "axios";
+
+import { searchImages, getRandomImages } from "../../../../hooks/asyncImages";
 
 export const useOnFocus = (dispatch, state) => {
 	return useCallback(() => {
@@ -87,73 +88,24 @@ export const useOnKeyUp = (dispatch, state, search, onBlurHandler) => {
 
 export const useGetRandom = (dispatch) => {
 	return async () => {
-		const options = {
-			featured: true,
-			orientation: "landscape",
-			count: 11,
-			client_id: process.env.REACT_APP_UNSPLASH_ACCESS_KEY,
-		};
-
-		const ROUTE = "/photos/random?";
-		const QUERY = Object.keys(options)
-			.map((key) => `${key}=${options[key]}`)
-			.join("&");
-
-		const REQUEST = process.env.REACT_APP_UNSPLASH_URL + ROUTE + QUERY;
-
-		try {
-			const res = await axios.get(REQUEST);
-			const images = res.data.map((image) => ({
-				id: image.id,
-				color: image.color,
-				urls: image.urls,
-				alt: image.alt_description,
-				isFavorite: false,
-			}));
-
-			dispatch({
-				type: "SET_IMAGES",
-				payload: images,
-			});
-		} catch (err) {
-			console.log(err);
-		}
+		const images = await getRandomImages();
+		dispatch({
+			type: "SET_IMAGES",
+			payload: images,
+		});
 	};
 };
 
 export const useSearch = (dispatch, state) => {
 	return async (term) => {
-		const options = {
-			query: term,
-			page: 1,
-			per_page: 11,
-			orientation: "landscape",
-			client_id: process.env.REACT_APP_UNSPLASH_ACCESS_KEY,
-		};
-
-		const ROUTE = "/search/photos?";
-		const QUERY = Object.keys(options)
-			.map((key) => `${key}=${options[key]}`)
-			.join("&");
-
-		const REQUEST = process.env.REACT_APP_UNSPLASH_URL + ROUTE + QUERY;
-
 		try {
-			const res = await axios.get(REQUEST);
-			const images = res.data.results;
-
-			const parsed = images.map((image) => ({
-				id: image.id,
-				color: image.color,
-				urls: image.urls,
-			}));
-
+			const images = await searchImages(term);
 			dispatch({
 				type: "SET_MULTIPLE",
 				payload: {
 					...state,
 					isSearching: false,
-					images: parsed,
+					images: images,
 					searchResults: true,
 					loading: false,
 				},
@@ -173,9 +125,7 @@ export const useSearch = (dispatch, state) => {
 };
 
 export const usePickImage = (dispatch, state, onImagePick) => {
-	return (e, img) => {
-		e.preventDefault();
-
+	return (img) => {
 		if (typeof img === "string") {
 			onImagePick({ id: null, url: null });
 		} else {

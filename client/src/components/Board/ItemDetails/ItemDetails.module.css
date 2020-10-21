@@ -1,10 +1,12 @@
 .DetailsPopup {
 	--offset-Y: 10vh;
-	left: calc(50% - 300px);
-	width: 600px;
+	--width: 700px;
+	left: calc(50% - calc(var(--width) / 2));
+	width: var(--width);
 	max-height: calc(100vh - var(--offset-Y) * 2);
-	overflow-y: auto;
+	overflow: hidden;
 	border-radius: 3px;
+	padding: 20px 20px 0;
 }
 
 .DetailsPopup[class*="transition-enter"] {
@@ -47,4 +49,16 @@
 .ButtonClose:hover {
 	color: var(--text-solid-3);
 	background-color: var(--btn-bg-2);
+}
+
+.Main {
+	display: flex;
+	height: 100%;
+}
+
+.MainInner {
+	flex: 1 0 auto;
+	height: calc(100vh - (var(--offset-Y) * 3) - 12px);
+	padding: 0 20px 10px 0;
+	overflow-y: auto;
 }

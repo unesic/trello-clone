@@ -1,0 +1,40 @@
+.BoardActions {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.ActionButton {
+	outline: unset;
+	border: unset;
+	background: unset;
+
+	border-radius: 3px;
+	margin: 4px 4px 0 0;
+	padding: 4px;
+	background-color: var(--base-solid-0);
+
+	color: var(--text-solid-1);
+	filter: brightness(1.3);
+	opacity: 0;
+	box-shadow: var(--shadow-0);
+	transition: all 0.1s ease-in-out 0s;
+}
+
+div[class*="SingleBoard"]:hover .BoardActions .ActionButton:not(:hover) {
+	opacity: 0.8;
+}
+
+.ActionButton:hover {
+	color: var(--text-solid-0);
+	opacity: 1;
+}
+
+.ButtonDelete:hover {
+	box-shadow: 0 1px 0 0 var(--red);
+}
+
+.ButtonPin:hover,
+.ButtonPin.Pinned {
+	box-shadow: 0 1px 0 0 var(--green);
+}

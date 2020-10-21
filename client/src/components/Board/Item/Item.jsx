@@ -1,6 +1,11 @@
 import React, { useState, useReducer, useContext, useEffect } from "react";
 import { Draggable } from "react-beautiful-dnd";
-import { FiMoreHorizontal, FiCheckCircle, FiX } from "react-icons/fi";
+import {
+	FiMoreHorizontal,
+	FiCheckCircle,
+	FiCheckSquare,
+	FiX,
+} from "react-icons/fi";
 
 import reducer from "./Item.reducer";
 import { AppContext } from "../../../App/App";
@@ -12,14 +17,45 @@ import {
 	ItemDone,
 	ActiveItem,
 	Dragging,
+	ItemTags,
+	ItemTag,
+	TagName,
 	Name,
 	ButtonOptions,
+	ItemChecklist,
+	Completed,
 } from "./Item.module.css";
 
 const Item = ({ item, itemIndex, listId }) => {
 	const context = useContext(AppContext);
 	const [state, dispatch] = useReducer(reducer, item);
 	const [statusIcon, setStatusIcon] = useState(<FiCheckCircle />);
+	const [checklist, setChecklist] = useState({
+		done: null,
+		total: null,
+		completed: false,
+	});
+
+	useEffect(() => {
+		const total = item.checklist.length;
+		if (total) {
+			const { done } = item.checklist.reduce((a, b) => ({
+				done: a.done + b.done,
+			}));
+
+			setChecklist({
+				done: +done,
+				total: total,
+				completed: done === total,
+			});
+		} else {
+			setChecklist({
+				done: null,
+				total: null,
+				completed: false,
+			});
+		}
+	}, [item.checklist]);
 
 	useEffect(() => {
 		dispatch({
@@ -100,6 +136,21 @@ const Item = ({ item, itemIndex, listId }) => {
 							setIcon={setStatusIcon}
 							setStatus={setStatus}
 						/>
+						{state.tags && state.tags.length ? (
+							<ul className={ItemTags}>
+								{state.tags.map((tag) => (
+									<li
+										key={tag.id}
+										className={ItemTag}
+										style={{ backgroundColor: tag.color }}
+									>
+										<span className={TagName}>
+											{tag.name}
+										</span>
+									</li>
+								))}
+							</ul>
+						) : null}
 						<EditableText
 							type="name"
 							onSave={({ text }) => {
@@ -119,6 +170,16 @@ const Item = ({ item, itemIndex, listId }) => {
 						>
 							<FiMoreHorizontal />
 						</button>
+						{checklist.total ? (
+							<p
+								className={`${ItemChecklist} ${
+									checklist.completed ? Completed : ""
+								}`.trim()}
+							>
+								<FiCheckSquare />{" "}
+								{`${checklist.done}/${checklist.total}`}
+							</p>
+						) : null}
 					</div>
 				</div>
 			)}

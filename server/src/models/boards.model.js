@@ -16,11 +16,10 @@ module.exports = function (app) {
 				type: String,
 				required: true,
 			},
-			image: {
-				type: String,
+			pinned: {
+				type: Boolean,
 				required: false,
-				default:
-					"https://via.placeholder.com/300x150/323a49/02c39a?text=Board+Placeholder+Image",
+				default: false,
 			},
 			data: {
 				type: String,
@@ -30,7 +29,13 @@ module.exports = function (app) {
 			style: {
 				type: String,
 				required: false,
-				default: "{'theme':'','transparency':'','backgroundImage':'','backgroundColor':''}",
+				default:
+					"{'theme':'dark','transparency':'','backgroundImage':'','backgroundColor':''}",
+			},
+			tags: {
+				type: String,
+				required: false,
+				default: "",
 			},
 		},
 		{

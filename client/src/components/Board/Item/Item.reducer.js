@@ -25,6 +25,11 @@ const reducer = (state, action) => {
 				...state,
 				comments: action.payload,
 			};
+		case "SET_TAGS":
+			return {
+				...state,
+				tags: action.payload,
+			};
 		case "UPDATE_ITEM":
 			return {
 				...action.payload,

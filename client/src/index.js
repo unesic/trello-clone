@@ -14,7 +14,8 @@ setGlobal({
 			url: null,
 		},
 		backgroundColor: null,
-	}
+	},
+	boardTags: [],
 });
 
 ReactDOM.render(

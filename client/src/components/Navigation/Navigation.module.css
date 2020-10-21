@@ -8,6 +8,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-around;
+	height: 42px;
 	background-color: var(--bg-solid-1);
 }
 
@@ -16,7 +17,7 @@
 }
 
 .NavContainer {
-	flex: 1 0 auto;
+	flex: 0 0 auto;
 	padding: 4px;
 }
 
@@ -25,36 +26,27 @@
 	list-style: none;
 }
 
-.Navitem {
-	padding: 4px;
+.Navitem + .Navitem {
+	margin-left: 4px;
 }
 
-.Navitem a {
-	display: block;
+.Navlink {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	border-bottom: 2px solid transparent;
 	border-radius: 3px;
 	padding: 6px 12px;
+	background-color: var(--base-solid-0);
 	color: var(--base-solid-1);
 	transition: all 0.1s ease-in-out 0s;
 }
 
+.Navlink svg {
+	margin-right: 6px;
+}
+
 .Navlink:hover,
 .Navlink.Active {
-	background-color: var(--base-solid-0);
-}
-
-.Navlink.Active {
 	border-color: var(--green);
-}
-
-.UserContainer {
-	display: flex;
-	align-items: center;
-	padding: 0 8px;
-}
-
-.UserName {
-	margin-right: 8px;
-	font-size: 1rem;
-	color: var(--base-solid-1);
 }
