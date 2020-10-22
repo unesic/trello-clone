@@ -1,4 +1,10 @@
-import React, { useState, useReducer, useContext, useEffect } from "react";
+import React, {
+	useState,
+	useReducer,
+	useContext,
+	useEffect,
+	useGlobal,
+} from "reactn";
 import { Draggable } from "react-beautiful-dnd";
 import {
 	FiMoreHorizontal,
@@ -28,6 +34,8 @@ import {
 
 const Item = ({ item, itemIndex, listId }) => {
 	const context = useContext(AppContext);
+	const [isUserOwner] = useGlobal("isUserOwner");
+
 	const [state, dispatch] = useReducer(reducer, item);
 	const [statusIcon, setStatusIcon] = useState(<FiCheckCircle />);
 	const [checklist, setChecklist] = useState({
@@ -120,7 +128,11 @@ const Item = ({ item, itemIndex, listId }) => {
 	};
 
 	return (
-		<Draggable draggableId={state.id} index={itemIndex}>
+		<Draggable
+			draggableId={state.id}
+			index={itemIndex}
+			isDragDisabled={!isUserOwner}
+		>
 			{(provided, snapshot) => (
 				<div
 					{...provided.draggableProps}
@@ -161,6 +173,7 @@ const Item = ({ item, itemIndex, listId }) => {
 							}}
 							styles={Name}
 							placeholder="Item title"
+							isOwner={isUserOwner}
 						>
 							{state.name}
 						</EditableText>

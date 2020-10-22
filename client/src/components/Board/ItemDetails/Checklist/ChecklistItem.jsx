@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useGlobal } from "reactn";
 import { Draggable } from "react-beautiful-dnd";
 import { FiCheckSquare, FiTrash } from "react-icons/fi";
 
@@ -16,6 +16,8 @@ import {
 } from "./Checklist.module.css";
 
 const Item = ({ idx, dispatch, checklist, id, title, done, initial }) => {
+	const [isUserOwner] = useGlobal("isUserOwner");
+
 	const toggleDone = () => {
 		dispatch({
 			type: "SET_CHECKLIST",
@@ -44,7 +46,7 @@ const Item = ({ idx, dispatch, checklist, id, title, done, initial }) => {
 	};
 
 	return (
-		<Draggable draggableId={id} index={idx}>
+		<Draggable draggableId={id} index={idx} isDragDisabled={!isUserOwner}>
 			{(provided, snapshot) => (
 				<div
 					{...provided.draggableProps}
@@ -57,12 +59,14 @@ const Item = ({ idx, dispatch, checklist, id, title, done, initial }) => {
 							snapshot.isDragging ? Dragging : ""
 						}`}
 					>
-						<button
-							className={`${ItemIcon} ${IconDone}`}
-							onClick={toggleDone}
-						>
-							<FiCheckSquare />
-						</button>
+						{isUserOwner ? (
+							<button
+								className={`${ItemIcon} ${IconDone}`}
+								onClick={toggleDone}
+							>
+								<FiCheckSquare />
+							</button>
+						) : null}
 						<EditableText
 							type="checklist"
 							onSave={updateTitle}
@@ -70,15 +74,18 @@ const Item = ({ idx, dispatch, checklist, id, title, done, initial }) => {
 							idx={idx}
 							initial={initial}
 							placeholder="Checklist item"
+							isOwner={isUserOwner}
 						>
 							{title}
 						</EditableText>
-						<button
-							className={`${ItemIcon} ${IconDelete}`}
-							onClick={removeItem}
-						>
-							<FiTrash />
-						</button>
+						{isUserOwner ? (
+							<button
+								className={`${ItemIcon} ${IconDelete}`}
+								onClick={removeItem}
+							>
+								<FiTrash />
+							</button>
+						) : null}
 					</div>
 				</div>
 			)}

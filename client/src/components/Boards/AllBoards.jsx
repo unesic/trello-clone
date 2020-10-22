@@ -17,12 +17,13 @@ const AllBoards = ({ service }) => {
 		others: [],
 	});
 
-	service.on("created", (board) =>
-		dispatch({
-			type: "SET_OTHERS",
-			payload: [...boards.others, board],
-		})
-	);
+	service.on("created", (board) => {
+		if (board.ownerId === user._id)
+			dispatch({
+				type: "SET_OTHERS",
+				payload: [...boards.others, board],
+			});
+	});
 
 	service.on("removed", (board) => {
 		if (board.pinned) {

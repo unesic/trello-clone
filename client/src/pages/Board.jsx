@@ -7,6 +7,7 @@ import App from "../App/App";
 const Board = ({ match }) => {
 	const boardService = useFeathers().service("boards");
 	const [user] = useGlobal("user");
+	const [, setIsUserOwner] = useGlobal("isUserOwner");
 	const [loading, setLoading] = useState(true);
 	const [board, setBoard] = useState(null);
 
@@ -14,8 +15,20 @@ const Board = ({ match }) => {
 		setLoading(true);
 		const board = await boardService.get(match.params.id);
 		setBoard(board);
+		setIsUserOwner(user._id === board.ownerId);
 		setLoading(false);
 	};
+
+	const onPatched = async (data) => {
+		try {
+			const newBoard = await data;
+			if (board && newBoard._id === board._id) setBoard(newBoard);
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+	boardService.on("patched", onPatched);
 
 	useEffect(() => {
 		getBoardData();
@@ -25,7 +38,7 @@ const Board = ({ match }) => {
 	return (
 		<div>
 			<Spinner loading={loading} />
-			{board && <App isOwner={user._id === board.ownerId} service={boardService} board={board} />}
+			{board && <App service={boardService} board={board} />}
 		</div>
 	);
 };
