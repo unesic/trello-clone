@@ -18,6 +18,7 @@ const Tags = ({ itemTags, dispatch }) => {
 	const { id: boardId } = useParams();
 	const service = useFeathers().service("boards");
 	const [user] = useGlobal("user");
+	const [isUserOwner] = useGlobal("isUserOwner");
 	const [boardTags, setBoardTags] = useGlobal("boardTags");
 
 	const [tags, setTags] = useState(
@@ -45,6 +46,7 @@ const Tags = ({ itemTags, dispatch }) => {
 		} else {
 			setAvailableTags([...boardTags]);
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [tags]);
 
 	useEffect(() => {
@@ -54,6 +56,7 @@ const Tags = ({ itemTags, dispatch }) => {
 			if (idx < 0) newAvailableTags.push(tag);
 		});
 		setAvailableTags([...newAvailableTags]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [boardTags]);
 
 	const addTag = (tag) => {
@@ -87,7 +90,7 @@ const Tags = ({ itemTags, dispatch }) => {
 	return (
 		<>
 			<Container>
-				<SidebarTitle>Current</SidebarTitle>
+				<SidebarTitle>Item tags</SidebarTitle>
 				{tags.length ? (
 					tags.map((tag) => (
 						<Tag
@@ -102,19 +105,21 @@ const Tags = ({ itemTags, dispatch }) => {
 				)}
 			</Container>
 
-			<Container>
-				<SidebarTitle>Available</SidebarTitle>
-				{availableTags.map((tag) => (
-					<Tag
-						key={tag.id}
-						clicked={addTag}
-						deleted={deleteTag}
-						{...tag}
-					/>
-				))}
-			</Container>
+			{isUserOwner ? (
+				<Container>
+					<SidebarTitle>Board tags</SidebarTitle>
+					{availableTags.map((tag) => (
+						<Tag
+							key={tag.id}
+							clicked={addTag}
+							deleted={deleteTag}
+							{...tag}
+						/>
+					))}
+				</Container>
+			) : null}
 
-			<NewTag tags={availableTags} />
+			{isUserOwner ? <NewTag tags={availableTags} /> : null}
 		</>
 	);
 };

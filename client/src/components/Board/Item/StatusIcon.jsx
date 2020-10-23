@@ -1,9 +1,11 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useGlobal } from "reactn";
 import { FiCheckCircle, FiX } from "react-icons/fi";
 
-import { Done, Show } from "./Item.module.css";
+import { Done, Show, NotOwner } from "./Item.module.css";
 
 const StatusIcon = ({ done, icon, dispatch, setIcon, setStatus }) => {
+	const [isUserOwner] = useGlobal("isUserOwner");
+
 	const onClickHandler = useCallback(() => {
 		dispatch({
 			type: "SET_DONE",
@@ -23,14 +25,16 @@ const StatusIcon = ({ done, icon, dispatch, setIcon, setStatus }) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [done]);
 
-	const classes = [Done, done ? Show : ""].join(" ");
+	const classes = [Done, done ? Show : "", !isUserOwner ? NotOwner : ""].join(
+		" "
+	);
 
 	return (
 		<span
 			className={classes}
-			onClick={onClickHandler}
-			onMouseEnter={onMouseEnterHandler}
-			onMouseLeave={onMouseLeaveHandler}
+			onClick={isUserOwner ? onClickHandler : null}
+			onMouseEnter={isUserOwner ? onMouseEnterHandler : null}
+			onMouseLeave={isUserOwner ? onMouseLeaveHandler : null}
 		>
 			{icon}
 		</span>

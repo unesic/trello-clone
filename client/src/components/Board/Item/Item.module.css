@@ -113,11 +113,11 @@
 	transform: translate(-45%, -30%) scale(1.1);
 }
 
-.SingleItem:hover .Done:not(:hover):not(.Show) {
+.SingleItem:hover .Done:not(:hover):not(.Show):not(.NotOwner) {
 	opacity: 0.5;
 }
 
-.Done.Show:hover {
+.Done.Show:not(.NotOwner):hover {
 	background-color: #e63946;
 }
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useGlobal } from "reactn";
 import { FiX } from "react-icons/fi";
 
 import EditableText from "../../../ui/EditableText/EditableText";
@@ -11,6 +11,8 @@ import {
 } from "./ItemActions.module.css";
 
 const ActionsHeader = ({ name, description, dispatch, onClose }) => {
+	const [isUserOwner] = useGlobal("isUserOwner");
+
 	const onSave = ({ type, text }) => {
 		switch (type) {
 			case "name":
@@ -24,7 +26,7 @@ const ActionsHeader = ({ name, description, dispatch, onClose }) => {
 					type: "SET_DESCRIPTION",
 					payload:
 						text.trim().split("\n").join("") !== ""
-							? text.trim()
+							? text.trim().replaceAll("\n", "\\n")
 							: "",
 				});
 				break;
@@ -40,6 +42,7 @@ const ActionsHeader = ({ name, description, dispatch, onClose }) => {
 				onSave={onSave}
 				styles={Name}
 				placeholder="Item title"
+				isOwner={isUserOwner}
 			>
 				{name}
 			</EditableText>
@@ -48,6 +51,7 @@ const ActionsHeader = ({ name, description, dispatch, onClose }) => {
 				onSave={onSave}
 				styles={Description}
 				placeholder="Item description"
+				isOwner={isUserOwner}
 			>
 				{description}
 			</EditableText>

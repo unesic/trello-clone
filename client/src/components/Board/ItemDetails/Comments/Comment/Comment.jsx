@@ -11,6 +11,7 @@ import {
 
 const Comment = ({ dispatch, comments, id, author, text, _createdAt }) => {
 	const [user] = useGlobal("user");
+	const [isUserOwner] = useGlobal("isUserOwner");
 
 	const updateText = ({ text }) => {
 		dispatch({
@@ -37,7 +38,7 @@ const Comment = ({ dispatch, comments, id, author, text, _createdAt }) => {
 			<Header
 				{...author}
 				timestamp={_createdAt}
-				isOwner={user._id === author._id}
+				isOwner={isUserOwner ? true : user._id === author._id}
 				onDelete={deleteCommentHandler}
 			/>
 			<div className={CommentTextWrapper}>

@@ -9,10 +9,13 @@
 	padding: 5px 0;
 	border-radius: 3px;
 	max-height: calc(100vh - 20px);
-	/* overflow: auto; */
 	background-color: var(--bg-solid-1);
 	box-shadow: var(--shadow-1);
 	transition: all 0.1s linear 0s;
+}
+
+.NotOwner {
+	padding-bottom: 30px;
 }
 
 .SingleList.Dragging {

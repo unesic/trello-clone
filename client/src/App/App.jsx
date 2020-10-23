@@ -20,14 +20,11 @@ import { AppContainer } from "./App.module.css";
 
 export const AppContext = createContext();
 
-const App = ({
-	isOwner,
-	service,
-	board: { _id, image, name, data, style, tags },
-}) => {
+const App = ({ service, board: { _id, data, style, tags } }) => {
 	const [user] = useGlobal("user");
+	const [isUserOwner] = useGlobal("isUserOwner");
 	const [boardStyle, setBoardStyle] = useGlobal("boardStyle");
-	const [_, setBoardTags] = useGlobal("boardTags");
+	const [boardTags, setBoardTags] = useGlobal("boardTags");
 
 	const [lists, setLists] = useState([]);
 	const [dragging, setDragging] = useState();
@@ -40,8 +37,7 @@ const App = ({
 	useEffect(() => {
 		if (data !== "") {
 			const parsed = dataParser.fromString(data);
-
-			parsed && parsed !== null && setLists(parsed);
+			setLists(parsed);
 		}
 
 		if (style !== "") {
@@ -51,7 +47,7 @@ const App = ({
 
 		if (tags !== "") {
 			const parsed = dataParser.fromString(tags);
-			setBoardTags(parsed);
+			if (dataParser.toString(boardTags) !== tags) setBoardTags(parsed);
 		}
 
 		return () => {
@@ -62,7 +58,7 @@ const App = ({
 			});
 		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [data, style, tags]);
 
 	useEffect(() => {
 		if (listsRef.current) {
@@ -122,7 +118,7 @@ const App = ({
 
 					<ItemActions />
 					<ItemDetails />
-					<SideDrawer />
+					{isUserOwner ? <SideDrawer /> : null}
 				</AppContext.Provider>
 			</DragDropContext>
 		</div>

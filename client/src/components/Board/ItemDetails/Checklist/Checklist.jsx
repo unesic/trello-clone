@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useGlobal } from "reactn";
 import { Droppable } from "react-beautiful-dnd";
 import { FiPlus } from "react-icons/fi";
 
@@ -14,6 +14,8 @@ import {
 } from "./Checklist.module.css";
 
 const Checklist = ({ id: itemId, checklist, dispatch }) => {
+	const [isUserOwner] = useGlobal("isUserOwner");
+
 	const newItemHandler = () => {
 		dispatch({
 			type: "SET_CHECKLIST",
@@ -61,9 +63,11 @@ const Checklist = ({ id: itemId, checklist, dispatch }) => {
 				)}
 			</Droppable>
 
-			<button onClick={newItemHandler} className={NewItemButton}>
-				<FiPlus /> Add new item
-			</button>
+			{isUserOwner ? (
+				<button onClick={newItemHandler} className={NewItemButton}>
+					<FiPlus /> Add new item
+				</button>
+			) : null}
 		</div>
 	);
 };

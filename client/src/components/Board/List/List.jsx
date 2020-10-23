@@ -1,4 +1,4 @@
-import React, { useContext, useCallback } from "react";
+import React, { useContext, useCallback, useGlobal } from "reactn";
 import { Draggable } from "react-beautiful-dnd";
 import { FiPlus } from "react-icons/fi";
 
@@ -9,6 +9,7 @@ import Header from "./ListHeader";
 import {
 	SingleListWrapper,
 	SingleList,
+	NotOwner,
 	Dragging,
 	Button,
 	ButtonAdd,
@@ -16,6 +17,7 @@ import {
 
 const List = ({ list: { id, name, items }, listIdx }) => {
 	const context = useContext(AppContext);
+	const [isUserOwner] = useGlobal("isUserOwner");
 
 	const saveListHandler = useCallback(
 		({ type, text }) => {
@@ -56,7 +58,11 @@ const List = ({ list: { id, name, items }, listIdx }) => {
 	}, [context.lists]);
 
 	return (
-		<Draggable draggableId={id} index={listIdx}>
+		<Draggable
+			draggableId={id}
+			index={listIdx}
+			isDragDisabled={!isUserOwner}
+		>
 			{(provided, snapshot) => (
 				<div
 					ref={provided.innerRef}
@@ -66,8 +72,8 @@ const List = ({ list: { id, name, items }, listIdx }) => {
 				>
 					<div
 						className={`${SingleList} ${
-							snapshot.isDragging && Dragging
-						}`}
+							!isUserOwner ? NotOwner : ""
+						} ${snapshot.isDragging && Dragging}`.trim()}
 					>
 						<Header
 							saveList={saveListHandler}
@@ -75,12 +81,14 @@ const List = ({ list: { id, name, items }, listIdx }) => {
 							name={name}
 						/>
 						<Items items={items} listId={id} />
-						<button
-							onClick={addItemHandler}
-							className={`${Button} ${ButtonAdd}`}
-						>
-							<FiPlus /> Add another item
-						</button>
+						{isUserOwner ? (
+							<button
+								onClick={addItemHandler}
+								className={`${Button} ${ButtonAdd}`}
+							>
+								<FiPlus /> Add another item
+							</button>
+						) : null}
 					</div>
 				</div>
 			)}

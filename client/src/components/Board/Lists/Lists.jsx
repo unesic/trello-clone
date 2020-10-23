@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useGlobal } from "reactn";
 import { Droppable } from "react-beautiful-dnd";
 import { FiPlus } from "react-icons/fi";
 
@@ -8,6 +8,7 @@ import List from "../List/List";
 
 const Lists = () => {
 	const context = useContext(AppContext);
+	const [isUserOwner] = useGlobal("isUserOwner");
 
 	const addListHandler = () => {
 		const newLists = [...context.lists];
@@ -37,9 +38,14 @@ const Lists = () => {
 						<List list={list} listIdx={i} key={list.id} />
 					))}
 					{provided.placeholder}
-					<button onClick={addListHandler} className={ButtonNewList}>
-						<FiPlus /> Add another list
-					</button>
+					{isUserOwner ? (
+						<button
+							onClick={addListHandler}
+							className={ButtonNewList}
+						>
+							<FiPlus /> Add another list
+						</button>
+					) : null}
 				</div>
 			)}
 		</Droppable>

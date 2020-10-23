@@ -6,6 +6,7 @@ import * as serviceWorker from "./serviceWorker";
 
 setGlobal({
 	user: null,
+	isUserOwner: false,
 	boardStyle: {
 		theme: "light",
 		transparency: false,

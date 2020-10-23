@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useGlobal } from "reactn";
 import { FiTrash2 } from "react-icons/fi";
 
 import {
 	TagContainer,
+	NotOwner,
 	Hovering,
 	TagButton,
 	TagColor,
@@ -10,17 +11,22 @@ import {
 } from "./Tag.module.css";
 
 const Tag = ({ clicked, deleted, id, name, color }) => {
+	const [isUserOwner] = useGlobal("isUserOwner");
 	const [hovering, setHovering] = useState(false);
 
 	return (
 		<div
-			className={`${TagContainer} ${hovering ? Hovering : ""}`}
+			className={`${TagContainer} ${!isUserOwner ? NotOwner : ""} ${
+				hovering ? Hovering : ""
+			}`}
 			onMouseEnter={() => setHovering(true)}
 			onMouseLeave={() => setHovering(false)}
 		>
 			<button
 				className={TagButton}
-				onClick={() => clicked({ id, name, color })}
+				onClick={
+					isUserOwner ? () => clicked({ id, name, color }) : null
+				}
 			>
 				<span
 					className={TagColor}
@@ -28,9 +34,11 @@ const Tag = ({ clicked, deleted, id, name, color }) => {
 				></span>
 				{name}
 			</button>
-			<button className={RemoveButton} onClick={() => deleted(id)}>
-				<FiTrash2 />
-			</button>
+			{isUserOwner ? (
+				<button className={RemoveButton} onClick={() => deleted(id)}>
+					<FiTrash2 />
+				</button>
+			) : null}
 		</div>
 	);
 };

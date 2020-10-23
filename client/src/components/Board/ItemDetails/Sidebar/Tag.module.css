@@ -25,6 +25,10 @@
 .Hovering .TagButton,
 .TagButton:hover {
 	background-color: var(--bg-solid-0);
+}
+
+.Hovering:not(.NotOwner) .TagButton,
+.TagContainer:not(.NotOwner) .TagButton:hover {
 	padding-right: 32px;
 }
 
