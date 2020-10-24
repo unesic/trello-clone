@@ -17,6 +17,7 @@ setGlobal({
 		backgroundColor: null,
 	},
 	boardTags: [],
+	justCreated: false,
 });
 
 ReactDOM.render(

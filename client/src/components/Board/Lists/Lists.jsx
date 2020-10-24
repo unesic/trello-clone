@@ -3,12 +3,17 @@ import { Droppable } from "react-beautiful-dnd";
 import { FiPlus } from "react-icons/fi";
 
 import { AppContext } from "../../../App/App";
-import { ListsContainer, ButtonNewList } from "./Lists.module.css";
+import {
+	ListsContainer,
+	ButtonNewList,
+	NewListContainer,
+} from "./Lists.module.css";
 import List from "../List/List";
 
 const Lists = () => {
 	const context = useContext(AppContext);
 	const [isUserOwner] = useGlobal("isUserOwner");
+	const [, setJustCreated] = useGlobal("justCreated");
 
 	const addListHandler = () => {
 		const newLists = [...context.lists];
@@ -19,6 +24,7 @@ const Lists = () => {
 			items: [],
 		});
 
+		setJustCreated(true);
 		context.setLists(newLists);
 	};
 
@@ -39,12 +45,14 @@ const Lists = () => {
 					))}
 					{provided.placeholder}
 					{isUserOwner ? (
-						<button
-							onClick={addListHandler}
-							className={ButtonNewList}
-						>
-							<FiPlus /> Add another list
-						</button>
+						<div className={NewListContainer}>
+							<button
+								onClick={addListHandler}
+								className={ButtonNewList}
+							>
+								<FiPlus /> Add another list
+							</button>
+						</div>
 					) : null}
 				</div>
 			)}

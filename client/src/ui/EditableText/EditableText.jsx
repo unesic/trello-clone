@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useGlobal } from "reactn";
 
 import { Input, Textarea, Placeholder } from "../../ui/styledComponents";
 import useHandlers from "./EditableText.helper";
@@ -11,8 +11,10 @@ const EditableText = ({
 	isOwner = true,
 	placeholder,
 	children,
-	required = false
+	required = false,
 }) => {
+	const [justCreated, setJustCreated] = useGlobal("justCreated");
+
 	const [text, setText] = useState(children);
 	const [snapshot, setSnapshot] = useState(children);
 	const [editing, setEditing] = useState(false);
@@ -26,8 +28,13 @@ const EditableText = ({
 		onSave,
 		type,
 		idx,
-		required
+		required,
+		setJustCreated
 	);
+
+	useEffect(() => {
+		if (justCreated) setEditing(true);
+	}, []);
 
 	useEffect(() => {
 		setText(children);

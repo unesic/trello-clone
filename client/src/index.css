@@ -16,6 +16,7 @@ body {
 	height: 100vh;
 	overflow-x: scroll;
 	overflow-y: hidden;
+	background-attachment: fixed;
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: cover;

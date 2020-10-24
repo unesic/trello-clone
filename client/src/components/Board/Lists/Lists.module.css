@@ -4,21 +4,26 @@
 	height: 100%;
 }
 
+.NewListContainer {
+	display: inline-flex;
+	flex: 0 0 260px;
+	justify-content: flex-start;
+	align-self: flex-start;
+	margin: 5px;
+	padding-right: 10px;
+	width: 260px;
+}
+
 .ButtonNewList {
 	border: unset;
 	outline: unset;
 	cursor: pointer;
 
-	display: inline-flex;
-	flex: 0 0 250px;
-	align-self: flex-start;
+	display: flex;
 	align-items: center;
 
-	margin: 5px 5px 5px 5px;
 	border-radius: 3px;
 	padding: 10px 12px;
-	width: 250px;
-	height: auto;
 	min-height: 32px;
 
 	background-color: var(--bg-solid-1);

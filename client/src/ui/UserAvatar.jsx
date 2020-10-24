@@ -45,6 +45,7 @@ const UserAvatar = ({
 					src={src}
 					alt={`${alt}'s Avatar`}
 					style={clicked && { padding: "2px" }}
+					referrerPolicy="no-referrer"
 				/>
 			) : (
 				user && (
@@ -53,6 +54,7 @@ const UserAvatar = ({
 							src={user.image}
 							alt={`${user.name}'s Avatar`}
 							style={clicked && { padding: "2px" }}
+							referrerPolicy="no-referrer"
 						/>
 						{withDetails && (
 							<Details>

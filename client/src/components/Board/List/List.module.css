@@ -35,8 +35,14 @@
 	cursor: pointer;
 }
 
+.SingleList:hover .Button {
+	opacity: 1;
+	visibility: visible;
+}
+
 .Button {
-	cursor: pointer;
+	opacity: 0;
+	visibility: hidden;
 	display: flex;
 	border: unset;
 	background: unset;

@@ -6,7 +6,8 @@ const useHandlers = (
 	onSave,
 	type,
 	idx,
-	required
+	required,
+	setJustCreated
 ) => {
 	return {
 		type: "text",
@@ -20,6 +21,7 @@ const useHandlers = (
 					setText(snapshot);
 				} else {
 					onSave({ type, text, idx });
+					setJustCreated(false);
 				}
 			}
 		},

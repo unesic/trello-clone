@@ -16,12 +16,13 @@ import {
 } from "./List.module.css";
 
 const List = ({ list: { id, name, items }, listIdx }) => {
-	const context = useContext(AppContext);
 	const [isUserOwner] = useGlobal("isUserOwner");
+	const [, setJustCreated] = useGlobal("justCreated");
+
+	const context = useContext(AppContext);
 
 	const saveListHandler = useCallback(
 		({ type, text }) => {
-			console.log("updated list", id, text);
 			const newLists = [...context.lists];
 			newLists[listIdx][type] = text;
 
@@ -53,6 +54,7 @@ const List = ({ list: { id, name, items }, listIdx }) => {
 			tags: [],
 		});
 
+		setJustCreated(true);
 		context.setLists(newLists);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [context.lists]);
