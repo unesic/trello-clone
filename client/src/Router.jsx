@@ -9,6 +9,8 @@ import Login from "./pages/Login";
 import Boards from "./pages/Boards";
 import Board from "./pages/Board";
 
+import ConfirmationPopup from "./ui/ConfirmationPopup/ConfirmationPopup";
+
 const Router = () => {
 	const feathers = useFeathers();
 	return (
@@ -27,6 +29,7 @@ const Router = () => {
 					}}
 				/>
 			</Switch>
+			<ConfirmationPopup />
 		</BrowserRouter>
 	);
 };

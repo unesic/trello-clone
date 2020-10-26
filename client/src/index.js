@@ -18,6 +18,12 @@ setGlobal({
 	},
 	boardTags: [],
 	justCreated: false,
+
+	confirmPopupVisible: false,
+	confirmPopupData: {
+		action: () => {},
+		text: "",
+	},
 });
 
 ReactDOM.render(

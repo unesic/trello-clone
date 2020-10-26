@@ -3,7 +3,7 @@ import { useFeathers } from "figbird";
 import { useParams } from "react-router-dom";
 import { FiPlus } from "react-icons/fi";
 
-import * as dataParser from "../../../../hooks/dataParser";
+import * as dataParser from "../../../../lib/dataParser";
 import { Fieldset, Input, Label } from "../../../../ui/styledComponents";
 import {
 	NewTagContainer,

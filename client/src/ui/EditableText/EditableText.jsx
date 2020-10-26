@@ -3,92 +3,94 @@ import React, { useState, useEffect, useGlobal } from "reactn";
 import { Input, Textarea, Placeholder } from "../../ui/styledComponents";
 import useHandlers from "./EditableText.helper";
 
-const EditableText = ({
-	type,
-	onSave,
-	styles,
-	idx,
-	isOwner = true,
-	placeholder,
-	children,
-	required = false,
-}) => {
-	const [justCreated, setJustCreated] = useGlobal("justCreated");
-
-	const [text, setText] = useState(children);
-	const [snapshot, setSnapshot] = useState(children);
-	const [editing, setEditing] = useState(false);
-	const [rows, setRows] = useState(3);
-
-	const props = useHandlers(
-		text,
-		setText,
-		snapshot,
-		setEditing,
-		onSave,
+const EditableText = React.memo(
+	({
 		type,
+		onSave,
+		styles,
 		idx,
-		required,
-		setJustCreated
-	);
+		isOwner = true,
+		placeholder,
+		children,
+		required = false,
+	}) => {
+		const [justCreated] = useGlobal("justCreated");
 
-	useEffect(() => {
-		if (justCreated) setEditing(true);
-	}, []);
+		const [text, setText] = useState(children);
+		const [snapshot, setSnapshot] = useState(children);
+		const [editing, setEditing] = useState(false);
+		const [rows, setRows] = useState(3);
 
-	useEffect(() => {
-		setText(children);
-	}, [children]);
+		const props = useHandlers(
+			text,
+			setText,
+			snapshot,
+			setEditing,
+			onSave,
+			type,
+			idx,
+			required
+		);
 
-	useEffect(() => {
-		if (text && (type === "comment" || type === "description")) {
-			const rows = text.split("\n").length;
-			setRows(rows > 3 ? rows : 3);
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [text]);
+		useEffect(() => {
+			if (justCreated) setEditing(true);
+			else setEditing(false);
+		}, [justCreated]);
 
-	const clickHandler = () => {
-		if (isOwner) {
-			text.trim() === "" && setText("");
-			setSnapshot(placeholder || text);
-			setEditing(true);
-		}
-	};
+		useEffect(() => {
+			setText(children);
+		}, [children]);
 
-	const getOutput = () => {
-		if (editing) {
-			return type === "comment" || type === "description" ? (
-				<Textarea rows={rows} {...props} />
-			) : (
-				<Input {...props} />
-			);
-		} else {
+		useEffect(() => {
 			if (text && (type === "comment" || type === "description")) {
-				return text
-					.trim()
-					.split("\n")
-					.map((line, i) => (
-						<span key={i}>
-							{line}
-							<br />
-						</span>
-					));
-			} else {
-				return text && text.trim() ? (
-					text
-				) : (
-					<Placeholder>{placeholder}</Placeholder>
-				);
+				const rows = text.split("\n").length;
+				setRows(rows > 3 ? rows : 3);
 			}
-		}
-	};
+			// eslint-disable-next-line react-hooks/exhaustive-deps
+		}, [text]);
 
-	return (
-		<div onClick={clickHandler} className={styles}>
-			{getOutput()}
-		</div>
-	);
-};
+		const clickHandler = () => {
+			if (isOwner) {
+				text.trim() === "" && setText("");
+				setSnapshot(placeholder || text);
+				setEditing(true);
+			}
+		};
+
+		const getOutput = () => {
+			if (editing) {
+				return type === "comment" || type === "description" ? (
+					<Textarea rows={rows} {...props} />
+				) : (
+					<Input {...props} />
+				);
+			} else {
+				if (text && (type === "comment" || type === "description")) {
+					return text
+						.trim()
+						.split("\n")
+						.map((line, i) => (
+							<span key={i}>
+								{line}
+								<br />
+							</span>
+						));
+				} else {
+					return text && text.trim() ? (
+						text
+					) : (
+						<Placeholder>{placeholder}</Placeholder>
+					);
+				}
+			}
+		};
+
+		return (
+			<div onClick={clickHandler} className={styles}>
+				{getOutput()}
+			</div>
+		);
+	}
+);
 
 export default EditableText;

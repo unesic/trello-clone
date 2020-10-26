@@ -10,16 +10,6 @@ const Modal = ({ visible, close, classes, children }) => {
 	return (
 		<>
 			<CSSTransition
-				nodeRef={backdropRef}
-				in={visible}
-				timeout={200}
-				classNames={`${Backdrop} Backdrop-transition`}
-				unmountOnExit
-			>
-				<div onClick={close} ref={backdropRef}></div>
-			</CSSTransition>
-
-			<CSSTransition
 				nodeRef={modalRef}
 				in={visible}
 				timeout={200}
@@ -27,6 +17,16 @@ const Modal = ({ visible, close, classes, children }) => {
 				unmountOnExit
 			>
 				<div ref={modalRef}>{children}</div>
+			</CSSTransition>
+
+			<CSSTransition
+				nodeRef={backdropRef}
+				in={visible}
+				timeout={200}
+				classNames={`${Backdrop} Backdrop-transition`}
+				unmountOnExit
+			>
+				<div onClick={close} ref={backdropRef}></div>
 			</CSSTransition>
 		</>
 	);

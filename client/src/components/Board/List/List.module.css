@@ -48,6 +48,7 @@
 	background: unset;
 	outline: unset;
 	font-size: 1rem;
+	transition: all 0.1s ease-in 0s;
 }
 
 .Button svg {
@@ -60,7 +61,6 @@
 	right: 10px;
 	border-radius: 3px;
 	padding: 5px;
-	transition: all 0.1s ease-in 0s;
 }
 
 .ButtonDelete:hover {

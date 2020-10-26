@@ -17,6 +17,8 @@ import {
 
 const Item = ({ idx, dispatch, checklist, id, title, done, initial }) => {
 	const [isUserOwner] = useGlobal("isUserOwner");
+	const [, setConfirmPopupVisible] = useGlobal("confirmPopupVisible");
+	const [, setConfirmPopupData] = useGlobal("confirmPopupData");
 
 	const toggleDone = () => {
 		dispatch({
@@ -39,10 +41,16 @@ const Item = ({ idx, dispatch, checklist, id, title, done, initial }) => {
 	};
 
 	const removeItem = () => {
-		dispatch({
-			type: "SET_CHECKLIST",
-			payload: [...checklist].filter((_, i) => i !== idx),
+		setConfirmPopupData({
+			action: () => {
+				dispatch({
+					type: "SET_CHECKLIST",
+					payload: [...checklist].filter((_, i) => i !== idx),
+				});
+			},
+			text: "Delete checklist item?",
 		});
+		setConfirmPopupVisible(true);
 	};
 
 	return (

@@ -1,7 +1,7 @@
-import React, { useContext, useEffect } from "reactn";
+import React, { useContext, useEffect, useGlobal } from "reactn";
 
 import { AppContext } from "../../../App/App";
-import useVisible from "../../../hooks/useVisible";
+import useVisible from "../../../lib/useVisible";
 
 import Header from "./ActionsHeader";
 import Options from "./Actions";
@@ -9,6 +9,8 @@ import Options from "./Actions";
 import { OptionsWrapper, Active, OptionsInner } from "./ItemActions.module.css";
 
 const ItemActions = () => {
+	const [, setConfirmPopupVisible] = useGlobal("confirmPopupVisible");
+	const [, setConfirmPopupData] = useGlobal("confirmPopupData");
 	const context = useContext(AppContext);
 
 	const { ref, isVisible, setIsVisible } = useVisible(false);
@@ -57,18 +59,30 @@ const ItemActions = () => {
 	};
 
 	const deleteItemHandler = () => {
-		const { id, listId } = context.clickedItem;
-		const newLists = [...context.lists];
-		const listIdx = newLists.findIndex((list) => list.id === listId);
+		setConfirmPopupData({
+			action: () => {
+				const { id, listId } = context.clickedItem;
+				const newLists = [...context.lists];
+				const listIdx = newLists.findIndex(
+					(list) => list.id === listId
+				);
 
-		if (listIdx < 0) return;
+				if (listIdx < 0) return;
 
-		newLists[listIdx].items = newLists[listIdx].items.filter(
-			(item) => item.id !== id
-		);
+				newLists[listIdx].items = newLists[listIdx].items.filter(
+					(item) => item.id !== id
+				);
 
-		context.setLists(newLists);
-		context.setClickedItem(null);
+				context.setLists(newLists);
+				context.setClickedItem(null);
+			},
+			text: `Delete item${
+				context.clickedItem.name !== ""
+					? ` "${context.clickedItem.name}"`
+					: ""
+			}?`,
+		});
+		setConfirmPopupVisible(true);
 	};
 
 	const classes = [OptionsWrapper, isVisible ? Active : ""].join(" ");

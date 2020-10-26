@@ -35,6 +35,7 @@ import {
 const Item = ({ item, itemIndex, listId }) => {
 	const context = useContext(AppContext);
 	const [isUserOwner] = useGlobal("isUserOwner");
+	const [, setJustCreated] = useGlobal("justCreated");
 
 	const [state, dispatch] = useReducer(reducer, item);
 	const [statusIcon, setStatusIcon] = useState(<FiCheckCircle />);
@@ -106,6 +107,7 @@ const Item = ({ item, itemIndex, listId }) => {
 			dispatch,
 		};
 		context.setClickedItem(data);
+		setJustCreated(false);
 	};
 
 	const setStatus = (enter) => {

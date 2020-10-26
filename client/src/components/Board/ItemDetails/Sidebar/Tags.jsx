@@ -3,7 +3,7 @@ import { useFeathers } from "figbird";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
-import * as dataParser from "../../../../hooks/dataParser";
+import * as dataParser from "../../../../lib/dataParser";
 import { Instruction, SidebarTitle } from "../../../../ui/styledComponents";
 import Tag from "./Tag";
 import NewTag from "./NewTag";
