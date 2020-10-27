@@ -2,3 +2,38 @@
 	margin: 0 4px;
 	padding: 0 4px;
 }
+
+.Button {
+	opacity: 0;
+	visibility: hidden;
+	display: flex;
+	border: unset;
+	background: unset;
+	outline: unset;
+	font-size: 1rem;
+	transition: all 0.1s ease-in 0s;
+}
+
+.Button svg {
+	color: var(--text-solid-0);
+}
+
+.ButtonAdd {
+	/* margin: 2px 0 8px 8px; */
+	margin: 2px 0 8px;
+	padding: 4px 8px;
+	border-radius: 3px;
+	/* width: calc(100% - 13px); */
+	width: 100%;
+	color: var(--text-solid-1);
+}
+
+.ButtonAdd svg {
+	margin-right: 2px;
+	color: var(--text-solid-1);
+}
+
+[class*="SingleList"]:hover .Button {
+	opacity: 1;
+	visibility: visible;
+}

@@ -1,6 +1,6 @@
 import React, { useGlobal } from "reactn";
 
-import useVisible from "../../../hooks/useVisible";
+import useVisible from "../../../lib/useVisible";
 import UserAvatar from "../../../ui/UserAvatar";
 import OptionsDropdown from "./OptionsDropdown/OptionsDropdown";
 

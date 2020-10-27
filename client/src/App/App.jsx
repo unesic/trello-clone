@@ -1,16 +1,8 @@
-import React, {
-	createContext,
-	useState,
-	useEffect,
-	useRef,
-	useCallback,
-	useGlobal,
-} from "reactn";
+import React, { createContext, useState, useEffect, useGlobal } from "reactn";
+import { useFeathers } from "figbird";
 import { DragDropContext } from "react-beautiful-dnd";
 
-import useToggle from "../lib/useToggle";
-import * as dataParser from "../lib/dataParser";
-import reorder, { setBackground } from "./App.helper";
+import { reorderLists, reorderItems } from "./App.helper";
 
 import Lists from "../components/Board/Lists/Lists";
 import ItemActions from "../components/Board/ItemActions/ItemActions";
@@ -20,83 +12,53 @@ import { AppContainer } from "./App.module.css";
 
 export const AppContext = createContext();
 
-const App = ({ service, board: { _id, data, style, tags } }) => {
+const App = ({ _id, lists }) => {
+	const boardsService = useFeathers().service("boards");
+	const listsService = useFeathers().service("lists");
+
 	const [user] = useGlobal("user");
 	const [isUserOwner] = useGlobal("isUserOwner");
-	const [boardStyle, setBoardStyle] = useGlobal("boardStyle");
-	const [boardTags, setBoardTags] = useGlobal("boardTags");
 
-	const [lists, setLists] = useState([]);
-	const [dragging, setDragging] = useState();
+	const [boardLists, setBoardLists] = useState(lists);
+	const [dragging, setDragging] = useState(null);
 	const [clickedItem, setClickedItem] = useState(null);
-	const [details, toggleDetails] = useToggle(false);
-
-	const listsRef = useRef(false);
-	const styleRef = useRef(false);
+	const [details, toggleDetails] = useState(false);
 
 	useEffect(() => {
-		if (data !== "") {
-			const parsed = dataParser.fromString(data);
-			setLists(parsed);
-		}
-
-		if (style !== "") {
-			const parsed = dataParser.fromString(style);
-			setBoardStyle(parsed);
-		}
-
-		if (tags !== "") {
-			const parsed = dataParser.fromString(tags);
-			if (dataParser.toString(boardTags) !== tags) setBoardTags(parsed);
-		}
-
-		return () => {
-			document.body.className = "";
-			setBackground({
-				backgroundImage: { url: null },
-				backgroundColor: null,
-			});
-		};
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [data, style, tags]);
-
-	useEffect(() => {
-		if (listsRef.current) {
-			const parsed = dataParser.toString(lists);
-			service.patch(_id, { data: parsed }, { user });
-		} else listsRef.current = true;
-		// eslint-disable-next-line react-hooks/exhaustive-deps
+		setBoardLists(lists);
 	}, [lists]);
-
-	useEffect(() => {
-		if (styleRef.current) {
-			const parsed = dataParser.toString(boardStyle);
-			service.patch(_id, { style: parsed }, { user });
-		} else styleRef.current = true;
-
-		document.body.classList = [
-			boardStyle.theme,
-			boardStyle.transparency ? "transparent" : "",
-		].join(" ");
-		setBackground(boardStyle);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [boardStyle]);
 
 	useEffect(() => {
 		if (!details) setClickedItem(null);
 	}, [details]);
 
-	const onDragStart = useCallback((res) => {
+	const onDragStart = (res) => {
 		setDragging(res.type);
-	}, []);
+		console.log("onDragStart");
+	};
 
-	const onDragEnd = (res) => {
+	const onDragEnd = async (res) => {
 		if (!res.destination) return;
 
 		const { type, source, destination } = res;
-		const newLists = reorder(lists, type, source, destination);
+		console.log(type);
+		if (type === "lists") {
+			const newLists = reorderLists(lists, source, destination);
+			setBoardLists(newLists);
+			boardsService.patch(_id, { lists: newLists }, { user });
+		} else if (type === "items") {
+			const srcListId = source.droppableId;
+			const desListId = destination.droppableId;
 
-		setLists(newLists);
+			const srcList = await listsService.get(srcListId);
+			const desList = await listsService.get(desListId);
+
+			const [moved] = srcList.items.splice(source.index, 1);
+			desList.items.splice(destination.index, 0, moved);
+
+			listsService.patch(srcListId, { items: srcList.items }, { user });
+			listsService.patch(desListId, { items: desList.items }, { user });
+		}
 		setDragging(null);
 	};
 
@@ -105,8 +67,6 @@ const App = ({ service, board: { _id, data, style, tags } }) => {
 			<DragDropContext onDragStart={onDragStart} onDragEnd={onDragEnd}>
 				<AppContext.Provider
 					value={{
-						lists,
-						setLists,
 						dragging,
 						clickedItem,
 						setClickedItem,
@@ -114,8 +74,7 @@ const App = ({ service, board: { _id, data, style, tags } }) => {
 						toggleDetails,
 					}}
 				>
-					{lists ? <Lists /> : "Loading..."}
-
+					<Lists boardLists={boardLists} boardId={_id} />
 					<ItemActions />
 					<ItemDetails />
 					{isUserOwner ? <SideDrawer /> : null}

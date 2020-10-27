@@ -1,4 +1,5 @@
 import React, { useGlobal } from "reactn";
+import { useFeathers } from "figbird";
 import { FiX } from "react-icons/fi";
 
 import EditableText from "../../../ui/EditableText/EditableText";
@@ -10,25 +11,31 @@ import {
 	Description,
 } from "./ItemActions.module.css";
 
-const ActionsHeader = ({ name, description, dispatch, onClose }) => {
+const ActionsHeader = ({ _id, name, description, dispatch, onClose }) => {
+	const itemsService = useFeathers().service("items");
+	const [user] = useGlobal("user");
 	const [isUserOwner] = useGlobal("isUserOwner");
 
 	const onSave = ({ type, text }) => {
 		switch (type) {
 			case "name":
+				const newName = text.trim();
 				dispatch({
 					type: "SET_NAME",
-					payload: text.trim(),
+					payload: newName,
 				});
+				itemsService.patch(_id, { name: newName }, { user });
 				break;
 			case "description":
+				const newDesc =
+					text.trim().split("\n").join("") !== ""
+						? text.trim().replaceAll("\n", "\\n")
+						: "";
 				dispatch({
 					type: "SET_DESCRIPTION",
-					payload:
-						text.trim().split("\n").join("") !== ""
-							? text.trim().replaceAll("\n", "\\n")
-							: "",
+					payload: newDesc,
 				});
+				itemsService.patch(_id, { description: newDesc }, { user });
 				break;
 			default:
 				break;

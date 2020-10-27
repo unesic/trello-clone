@@ -8,7 +8,7 @@ setGlobal({
 	user: null,
 	isUserOwner: false,
 	boardStyle: {
-		theme: "light",
+		theme: "dark",
 		transparency: false,
 		backgroundImage: {
 			id: null,

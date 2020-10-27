@@ -1,4 +1,4 @@
-const reorderLists = (lists, src, dest) => {
+export const reorderLists = (lists, src, dest) => {
 	const newLists = [...lists];
 	const [moved] = newLists.splice(src.index, 1);
 	newLists.splice(dest.index, 0, moved);
@@ -6,7 +6,9 @@ const reorderLists = (lists, src, dest) => {
 	return newLists;
 };
 
-const reorderItems = (lists, src, dest) => {
+export const reorderItems = (lists, src, dest) => {
+	console.log(src);
+	console.log(dest);
 	const newLists = [...lists];
 
 	const srcList = newLists.find((list) => list.id === src.droppableId);

@@ -36,7 +36,7 @@ const useHandlers = (
 		onKeyUp: (e) => {
 			if (e.keyCode === 27) {
 				setEditing(false);
-				setText(snapshot);
+				setText(text);
 			}
 		},
 	};

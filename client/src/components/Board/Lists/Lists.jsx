@@ -1,8 +1,8 @@
-import React, { useContext, useGlobal } from "reactn";
+import React, { useGlobal, useState, useEffect } from "reactn";
+import { useFeathers } from "figbird";
 import { Droppable } from "react-beautiful-dnd";
 import { FiPlus } from "react-icons/fi";
 
-import { AppContext } from "../../../App/App";
 import {
 	ListsContainer,
 	ButtonNewList,
@@ -10,22 +10,35 @@ import {
 } from "./Lists.module.css";
 import List from "../List/List";
 
-const Lists = () => {
-	const context = useContext(AppContext);
+const Lists = ({ boardLists, boardId }) => {
+	const boardsService = useFeathers().service("boards");
+	const listsService = useFeathers().service("lists");
+
+	const [user] = useGlobal("user");
 	const [isUserOwner] = useGlobal("isUserOwner");
 	const [, setJustCreated] = useGlobal("justCreated");
 
-	const addListHandler = () => {
-		const newLists = [...context.lists];
-		newLists.push({
-			id: "list-" + Date.now(),
-			name: "",
-			description: "",
-			items: [],
-		});
+	const [lists, setLists] = useState(boardLists);
 
+	useEffect(() => {
+		setLists(boardLists);
+	}, [boardLists]);
+
+	const addListHandler = async () => {
+		const newList = await listsService.create({});
+		const newLists = lists.length ? [...lists, newList._id] : [newList._id];
+
+		setLists(newLists);
 		setJustCreated(true);
-		context.setLists(newLists);
+		await boardsService.patch(boardId, { lists: newLists }, { user });
+	};
+
+	const removeList = (id) => {
+		const newLists = lists.filter((listId) => listId !== id);
+		setLists(newLists);
+
+		boardsService.patch(boardId, { lists: newLists }, { user });
+		listsService.remove(id);
 	};
 
 	return (
@@ -40,8 +53,13 @@ const Lists = () => {
 					{...provided.droppableProps}
 					className={ListsContainer}
 				>
-					{context.lists.map((list, i) => (
-						<List list={list} listIdx={i} key={list.id} />
+					{lists.map((listId, idx) => (
+						<List
+							key={listId}
+							listId={listId}
+							listIdx={idx}
+							remove={removeList}
+						/>
 					))}
 					{provided.placeholder}
 					{isUserOwner ? (

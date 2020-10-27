@@ -1,9 +1,13 @@
-import React, { useGlobal } from "reactn";
+import React, { useGlobal, useContext } from "reactn";
+import { useFeathers } from "figbird";
 import { Droppable } from "react-beautiful-dnd";
 import { FiPlus } from "react-icons/fi";
 
+import { AppContext } from "../../../../App/App";
+
+import * as dataParser from "../../../../lib/dataParser";
 import ProgressBar from "./ProgressBar/ProgressBar";
-import Item from "./ChecklistItem";
+import ChecklistItem from "./ChecklistItem";
 import { Instruction } from "../../../../ui/styledComponents";
 import {
 	ChecklistContainer,
@@ -13,21 +17,36 @@ import {
 	IsDraggedInside,
 } from "./Checklist.module.css";
 
-const Checklist = ({ id: itemId, checklist, dispatch }) => {
+const Checklist = ({ _id: itemId, checklist, dispatch }) => {
+	const itemsService = useFeathers().service("items");
+
+	const [user] = useGlobal("user");
 	const [isUserOwner] = useGlobal("isUserOwner");
 
+	const context = useContext(AppContext);
+
 	const newItemHandler = () => {
+		const newItem = {
+			id: "checklist-item-" + Date.now(),
+			title: "",
+			done: false,
+		};
+		const newChecklist = checklist.length
+			? [...checklist, newItem]
+			: [newItem];
 		dispatch({
 			type: "SET_CHECKLIST",
-			payload: [
-				...checklist,
-				{
-					id: "checklist-item-" + Date.now(),
-					title: "",
-					done: false,
-				},
-			],
+			payload: dataParser.toString(newChecklist),
 		});
+		context.setClickedItem({
+			...context.clickedItem,
+			checklist: newChecklist,
+		});
+		itemsService.patch(
+			itemId,
+			{ checklist: dataParser.toString(newChecklist) },
+			{ user }
+		);
 	};
 
 	return (
@@ -47,11 +66,12 @@ const Checklist = ({ id: itemId, checklist, dispatch }) => {
 					>
 						{checklist && checklist.length ? (
 							checklist.map((item, idx) => (
-								<Item
+								<ChecklistItem
 									key={item.id}
 									idx={idx}
 									dispatch={dispatch}
 									checklist={checklist}
+									itemId={itemId}
 									{...item}
 								/>
 							))

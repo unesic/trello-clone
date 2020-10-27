@@ -21,10 +21,10 @@ module.exports = function (app) {
 				required: false,
 				default: false,
 			},
-			data: {
-				type: String,
+			lists: {
+				type: [Schema.Types.ObjectId],
 				required: false,
-				default: "",
+				default: [],
 			},
 			style: {
 				type: String,

@@ -1,14 +1,18 @@
 import React, { useContext, useEffect, useGlobal } from "reactn";
+import { useFeathers } from "figbird";
 
 import { AppContext } from "../../../App/App";
 import useVisible from "../../../lib/useVisible";
 
-import Header from "./ActionsHeader";
-import Options from "./Actions";
+import ActionsHeader from "./ActionsHeader";
+import Actions from "./Actions";
 
 import { OptionsWrapper, Active, OptionsInner } from "./ItemActions.module.css";
 
 const ItemActions = () => {
+	const itemsService = useFeathers().service("items");
+
+	const [user] = useGlobal("user");
 	const [, setConfirmPopupVisible] = useGlobal("confirmPopupVisible");
 	const [, setConfirmPopupData] = useGlobal("confirmPopupData");
 	const context = useContext(AppContext);
@@ -36,44 +40,26 @@ const ItemActions = () => {
 
 	const toggleDetailsHandler = () => {
 		setIsVisible(false);
-		context.toggleDetails();
+		context.toggleDetails(true);
 	};
 
 	const markItemHandler = () => {
-		const { id, listId } = context.clickedItem;
-		const newLists = [...context.lists];
-		const listIdx = newLists.findIndex((list) => list.id === listId);
-
-		if (listIdx < 0) return;
-
-		newLists[listIdx].items.forEach((item) => {
-			if (item.id === id) item.done = !item.done;
+		const { _id, done, dispatch } = context.clickedItem;
+		dispatch({
+			type: "SET_DONE",
+			payload: !done,
 		});
-
+		itemsService.patch(_id, { done: !done }, { user });
 		setIsVisible(false);
-		context.setLists(newLists);
 
-		if (!context.details) {
-			context.setClickedItem(null);
-		}
+		if (!context.details) context.setClickedItem(null);
 	};
 
 	const deleteItemHandler = () => {
 		setConfirmPopupData({
 			action: () => {
-				const { id, listId } = context.clickedItem;
-				const newLists = [...context.lists];
-				const listIdx = newLists.findIndex(
-					(list) => list.id === listId
-				);
-
-				if (listIdx < 0) return;
-
-				newLists[listIdx].items = newLists[listIdx].items.filter(
-					(item) => item.id !== id
-				);
-
-				context.setLists(newLists);
+				const { _id, remove } = context.clickedItem;
+				remove(_id);
 				context.setClickedItem(null);
 			},
 			text: `Delete item${
@@ -93,11 +79,11 @@ const ItemActions = () => {
 	return (
 		<div className={classes} style={styles}>
 			<div className={OptionsInner} ref={ref}>
-				<Header
+				<ActionsHeader
 					{...context.clickedItem}
 					onClose={closeOptionsHandler}
 				/>
-				<Options
+				<Actions
 					onToggle={toggleDetailsHandler}
 					onMark={markItemHandler}
 					onDelete={deleteItemHandler}

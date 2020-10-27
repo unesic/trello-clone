@@ -5,6 +5,7 @@ import React, {
 	useEffect,
 	useGlobal,
 } from "reactn";
+import { useFeathers } from "figbird";
 import { Draggable } from "react-beautiful-dnd";
 import {
 	FiMoreHorizontal,
@@ -13,6 +14,7 @@ import {
 	FiX,
 } from "react-icons/fi";
 
+import * as dataParser from "../../../lib/dataParser";
 import reducer from "./Item.reducer";
 import { AppContext } from "../../../App/App";
 import StatusIcon from "./StatusIcon";
@@ -32,12 +34,16 @@ import {
 	Completed,
 } from "./Item.module.css";
 
-const Item = ({ item, itemIndex, listId }) => {
-	const context = useContext(AppContext);
+const Item = React.memo(({ itemId, itemIdx, remove }) => {
+	const itemsService = useFeathers().service("items");
+
+	const [user] = useGlobal("user");
 	const [isUserOwner] = useGlobal("isUserOwner");
 	const [, setJustCreated] = useGlobal("justCreated");
 
-	const [state, dispatch] = useReducer(reducer, item);
+	const context = useContext(AppContext);
+
+	const [state, dispatch] = useReducer(reducer, undefined);
 	const [statusIcon, setStatusIcon] = useState(<FiCheckCircle />);
 	const [checklist, setChecklist] = useState({
 		done: null,
@@ -46,65 +52,71 @@ const Item = ({ item, itemIndex, listId }) => {
 	});
 
 	useEffect(() => {
-		const total = item.checklist.length;
-		if (total) {
-			const { done } = item.checklist.reduce((a, b) => ({
-				done: a.done + b.done,
-			}));
+		updateItem();
+	}, []);
 
-			setChecklist({
-				done: +done,
-				total: total,
-				completed: done === total,
+	itemsService.on("patched", (item) => {
+		if (JSON.stringify(item) !== JSON.stringify(state)) {
+			dispatch({
+				type: "UPDATE_ITEM",
+				payload: item,
 			});
-		} else {
-			setChecklist({
-				done: null,
-				total: null,
-				completed: false,
-			});
+			if (context.clickedItem) {
+				context.setClickedItem({
+					...context.clickedItem,
+					name: item.name,
+					description: item.description,
+					done: item.done,
+					checklist: dataParser.fromString(item.checklist),
+				});
+			}
 		}
-	}, [item.checklist]);
+	});
 
-	useEffect(() => {
-		dispatch({
-			type: "UPDATE_ITEM",
-			payload: item,
+	const updateItem = () => {
+		itemsService.get(itemId).then((item) => {
+			dispatch({
+				type: "UPDATE_ITEM",
+				payload: item,
+			});
 		});
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [JSON.stringify(item)]);
+	};
 
 	useEffect(() => {
-		const newLists = [...context.lists];
+		if (state && state.checklist !== "") {
+			const checklist = dataParser.fromString(state.checklist);
+			const total = checklist.length;
+			if (total) {
+				const { done } = checklist.reduce((a, b) => ({
+					done: a.done + b.done,
+				}));
 
-		const listIdx = newLists.findIndex((list) => list.id === listId);
-		if (listIdx < 0) return;
-
-		newLists[listIdx].items[itemIndex] = { ...state };
-
-		context.setLists(newLists);
-
-		if (context.clickedItem) {
-			context.setClickedItem({
-				...state,
-				listId,
-				dispatch,
-				pos: { ...context.clickedItem.pos },
-			});
+				setChecklist({
+					done: +done,
+					total: total,
+					completed: done === total,
+				});
+			} else {
+				setChecklist({
+					done: null,
+					total: null,
+					completed: false,
+				});
+			}
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [JSON.stringify(state)]);
+	}, [state]);
 
 	const toggleOptions = (e) => {
 		const { top, left } = e.target.getBoundingClientRect();
 		const data = {
-			...item,
-			listId,
+			...state,
+			checklist: dataParser.fromString(state.checklist),
 			pos: {
 				top,
 				left,
 			},
 			dispatch,
+			remove: remove,
 		};
 		context.setClickedItem(data);
 		setJustCreated(false);
@@ -130,76 +142,86 @@ const Item = ({ item, itemIndex, listId }) => {
 	};
 
 	return (
-		<Draggable
-			draggableId={state.id}
-			index={itemIndex}
-			isDragDisabled={!isUserOwner}
-		>
-			{(provided, snapshot) => (
-				<div
-					{...provided.draggableProps}
-					{...provided.dragHandleProps}
-					ref={provided.innerRef}
-					className={SingleItemWrapper}
-				>
-					<div className={singleItemClasses(snapshot.isDragging)}>
-						<StatusIcon
-							done={state.done}
-							icon={statusIcon}
-							dispatch={dispatch}
-							setIcon={setStatusIcon}
-							setStatus={setStatus}
-						/>
-						{state.tags && state.tags.length ? (
-							<ul className={ItemTags}>
-								{state.tags.map((tag) => (
-									<li
-										key={tag.id}
-										className={ItemTag}
-										style={{ backgroundColor: tag.color }}
-									>
-										<span className={TagName}>
-											{tag.name}
-										</span>
-									</li>
-								))}
-							</ul>
-						) : null}
-						<EditableText
-							type="name"
-							onSave={({ text }) => {
-								dispatch({
-									type: "SET_NAME",
-									payload: text.trim(),
-								});
-							}}
-							styles={Name}
-							placeholder="Item title"
-							isOwner={isUserOwner}
-						>
-							{state.name}
-						</EditableText>
-						<button
-							onClick={toggleOptions}
-							className={ButtonOptions}
-						>
-							<FiMoreHorizontal />
-						</button>
-						{checklist.total ? (
-							<p
-								className={`${ItemChecklist} ${
-									checklist.completed ? Completed : ""
-								}`.trim()}
+		state && (
+			<Draggable
+				draggableId={state._id}
+				index={itemIdx}
+				isDragDisabled={!isUserOwner}
+			>
+				{(provided, snapshot) => (
+					<div
+						{...provided.draggableProps}
+						{...provided.dragHandleProps}
+						ref={provided.innerRef}
+						className={SingleItemWrapper}
+					>
+						<div className={singleItemClasses(snapshot.isDragging)}>
+							<StatusIcon
+								itemId={state._id}
+								done={state.done}
+								icon={statusIcon}
+								dispatch={dispatch}
+								setIcon={setStatusIcon}
+								setStatus={setStatus}
+							/>
+							{state.tags && state.tags.length ? (
+								<ul className={ItemTags}>
+									{state.tags.map((tag) => (
+										<li
+											key={tag.id}
+											className={ItemTag}
+											style={{
+												backgroundColor: tag.color,
+											}}
+										>
+											<span className={TagName}>
+												{tag.name}
+											</span>
+										</li>
+									))}
+								</ul>
+							) : null}
+							<EditableText
+								type="name"
+								onSave={({ text }) => {
+									dispatch({
+										type: "SET_NAME",
+										payload: text.trim(),
+									});
+									itemsService.patch(
+										itemId,
+										{ name: text },
+										{ user }
+									);
+								}}
+								styles={Name}
+								placeholder="Item title"
+								isOwner={isUserOwner}
 							>
-								<FiCheckSquare />{" "}
-								{`${checklist.done}/${checklist.total}`}
-							</p>
-						) : null}
+								{state.name}
+							</EditableText>
+							<button
+								onClick={toggleOptions}
+								className={ButtonOptions}
+							>
+								<FiMoreHorizontal />
+							</button>
+							{checklist.total ? (
+								<p
+									className={`${ItemChecklist} ${
+										checklist.completed ? Completed : ""
+									}`.trim()}
+								>
+									<FiCheckSquare />{" "}
+									{`${checklist.done}/${checklist.total}`}
+								</p>
+							) : null}
+						</div>
 					</div>
-				</div>
-			)}
-		</Draggable>
+				)}
+			</Draggable>
+		)
 	);
-};
+});
 
 export default Item;

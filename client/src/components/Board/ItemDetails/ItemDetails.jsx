@@ -4,7 +4,7 @@ import { FiX } from "react-icons/fi";
 import { AppContext } from "../../../App/App";
 
 import Modal from "../../../ui/Modal/Modal";
-import Header from "./DetailsHeader/DetailsHeader";
+import DetailsHeader from "./DetailsHeader/DetailsHeader";
 import Checklist from "./Checklist/Checklist";
 import Comments from "./Comments/Comments";
 import Sidebar from "./Sidebar/Sidebar";
@@ -22,13 +22,16 @@ const ItemDetails = () => {
 	return (
 		<Modal
 			visible={context.details}
-			close={context.toggleDetails}
+			close={() => context.toggleDetails(false)}
 			classes={DetailsPopup}
 		>
-			<button onClick={context.toggleDetails} className={ButtonClose}>
+			<button
+				onClick={() => context.toggleDetails(false)}
+				className={ButtonClose}
+			>
 				<FiX />
 			</button>
-			<Header {...context.clickedItem} />
+			<DetailsHeader {...context.clickedItem} />
 			<div className={Main}>
 				<div className={MainInner}>
 					<Checklist {...context.clickedItem} />

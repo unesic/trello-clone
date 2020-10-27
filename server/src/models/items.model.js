@@ -1,27 +1,42 @@
-// users-model.js - A mongoose model
+// items-model.js - A mongoose model
 //
 // See http://mongoosejs.com/docs/models.html
 // for more of what you can do here.
 module.exports = function (app) {
-	const modelName = "users";
+	const modelName = "items";
 	const mongooseClient = app.get("mongooseClient");
-	const schema = new mongooseClient.Schema(
+	const { Schema } = mongooseClient;
+	const schema = new Schema(
 		{
-			googleId: {
-				type: String,
-				required: true,
-			},
-			email: {
-				type: String,
-				required: true,
-			},
 			name: {
 				type: String,
-				required: true,
+				required: false,
+				default: "",
 			},
-			image: {
+			description: {
 				type: String,
-				required: true,
+				required: false,
+				default: "",
+			},
+			done: {
+				type: Boolean,
+				required: false,
+				default: false,
+			},
+			comments: {
+				type: [String],
+				required: false,
+				default: [],
+			},
+			checklist: {
+				type: String,
+				required: false,
+				default: "[]",
+			},
+			tags: {
+				type: [String],
+				required: false,
+				default: [],
 			},
 		},
 		{

@@ -1,10 +1,14 @@
 import React, { useGlobal } from "reactn";
+import { useFeathers } from "figbird";
 
 import EditableText from "../../../../ui/EditableText/EditableText";
 
 import { HeaderContainer, Name, Description } from "./DetailsHeader.module.css";
 
-const Header = ({ name, description, done, dispatch }) => {
+const Header = ({ _id, name, description, done, dispatch }) => {
+	const itemsService = useFeathers().service("items");
+
+	const [user] = useGlobal("user");
 	const [isUserOwner] = useGlobal("isUserOwner");
 
 	const onSave = ({ type, text }) => {
@@ -12,6 +16,7 @@ const Header = ({ name, description, done, dispatch }) => {
 			type: `SET_${type.toUpperCase()}`,
 			payload: text,
 		});
+		itemsService.patch(_id, { [type]: text }, { user });
 	};
 
 	return (

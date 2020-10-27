@@ -1,7 +1,11 @@
-import React, { useGlobal } from "reactn";
+import React, { useGlobal, useContext } from "reactn";
+import { useFeathers } from "figbird";
 import { Draggable } from "react-beautiful-dnd";
 import { FiCheckSquare, FiTrash } from "react-icons/fi";
 
+import { AppContext } from "../../../../App/App";
+
+import * as dataParser from "../../../../lib/dataParser";
 import EditableText from "../../../../ui/EditableText/EditableText";
 
 import {
@@ -15,19 +19,44 @@ import {
 	ItemText,
 } from "./Checklist.module.css";
 
-const Item = ({ idx, dispatch, checklist, id, title, done, initial }) => {
+const Item = ({
+	idx,
+	dispatch,
+	checklist,
+	itemId,
+	id,
+	title,
+	done,
+	initial,
+}) => {
+	const itemsService = useFeathers().service("items");
+
+	const [user] = useGlobal("user");
 	const [isUserOwner] = useGlobal("isUserOwner");
+
+	const context = useContext(AppContext);
+
 	const [, setConfirmPopupVisible] = useGlobal("confirmPopupVisible");
 	const [, setConfirmPopupData] = useGlobal("confirmPopupData");
 
 	const toggleDone = () => {
+		const newChecklist = [...checklist].map((item, i) => {
+			if (i === idx) item.done = !item.done;
+			return item;
+		});
 		dispatch({
 			type: "SET_CHECKLIST",
-			payload: [...checklist].map((item, i) => {
-				if (i === idx) item.done = !item.done;
-				return item;
-			}),
+			payload: dataParser.toString(newChecklist),
 		});
+		context.setClickedItem({
+			...context.clickedItem,
+			checklist: newChecklist,
+		});
+		itemsService.patch(
+			itemId,
+			{ checklist: dataParser.toString(newChecklist) },
+			{ user }
+		);
 	};
 
 	const updateTitle = ({ text }) => {

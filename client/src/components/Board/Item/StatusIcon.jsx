@@ -1,9 +1,13 @@
 import React, { useCallback, useGlobal } from "reactn";
+import { useFeathers } from "figbird";
 import { FiCheckCircle, FiX } from "react-icons/fi";
 
 import { Done, Show, NotOwner } from "./Item.module.css";
 
-const StatusIcon = ({ done, icon, dispatch, setIcon, setStatus }) => {
+const StatusIcon = ({ itemId, done, icon, dispatch, setIcon, setStatus }) => {
+	const itemsService = useFeathers().service("items");
+
+	const [user] = useGlobal("user");
 	const [isUserOwner] = useGlobal("isUserOwner");
 
 	const onClickHandler = useCallback(() => {
@@ -12,6 +16,7 @@ const StatusIcon = ({ done, icon, dispatch, setIcon, setStatus }) => {
 			payload: !done,
 		});
 		done ? setIcon(<FiCheckCircle />) : setIcon(<FiX />);
+		itemsService.patch(itemId, { done: !done }, { user });
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [icon]);
 
