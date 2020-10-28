@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { FiPlus } from "react-icons/fi";
 
 import Modal from "../../../ui/Modal/Modal";
-import useToggle from "../../../hooks/useToggle";
-import { getRandomImages } from "../../../hooks/asyncImages";
+import useToggle from "../../../lib/useToggle";
+import { getRandomImages } from "../../../lib/asyncImages";
 import { Fieldset, Input, Label } from "../../../ui/styledComponents";
 
 import MainImages from "../../SideDrawer/Images/lib/MainImages";
