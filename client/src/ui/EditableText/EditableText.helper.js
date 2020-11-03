@@ -6,8 +6,7 @@ const useHandlers = (
 	onSave,
 	type,
 	idx,
-	required,
-	setJustCreated
+	required
 ) => {
 	return {
 		type: "text",
@@ -21,7 +20,6 @@ const useHandlers = (
 					setText(snapshot);
 				} else {
 					onSave({ type, text, idx });
-					setJustCreated(false);
 				}
 			}
 		},
@@ -35,15 +33,12 @@ const useHandlers = (
 			onSave({ type, text, idx });
 		},
 
-		onKeyUp:
-			type === "editing"
-				? (e) => {
-						if (e.keyCode === 27) {
-							setEditing(false);
-							setText(snapshot);
-						}
-				  }
-				: null,
+		onKeyUp: (e) => {
+			if (e.keyCode === 27) {
+				setEditing(false);
+				setText(snapshot);
+			}
+		},
 	};
 };
 

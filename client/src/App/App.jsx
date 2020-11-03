@@ -8,8 +8,8 @@ import React, {
 } from "reactn";
 import { DragDropContext } from "react-beautiful-dnd";
 
-import useToggle from "../hooks/useToggle";
-import * as dataParser from "../hooks/dataParser";
+import useToggle from "../lib/useToggle";
+import * as dataParser from "../lib/dataParser";
 import reorder, { setBackground } from "./App.helper";
 
 import Lists from "../components/Board/Lists/Lists";

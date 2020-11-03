@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 
-import { searchImages, getRandomImages } from "../../../../hooks/asyncImages";
+import { searchImages, getRandomImages } from "../../../../lib/asyncImages";
 
 export const useOnFocus = (dispatch, state) => {
 	return useCallback(() => {

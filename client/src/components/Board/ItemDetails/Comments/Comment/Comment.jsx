@@ -12,6 +12,8 @@ import {
 const Comment = ({ dispatch, comments, id, author, text, _createdAt }) => {
 	const [user] = useGlobal("user");
 	const [isUserOwner] = useGlobal("isUserOwner");
+	const [, setConfirmPopupVisible] = useGlobal("confirmPopupVisible");
+	const [, setConfirmPopupData] = useGlobal("confirmPopupData");
 
 	const updateText = ({ text }) => {
 		dispatch({
@@ -27,10 +29,18 @@ const Comment = ({ dispatch, comments, id, author, text, _createdAt }) => {
 	};
 
 	const deleteCommentHandler = () => {
-		dispatch({
-			type: "SET_COMMENTS",
-			payload: [...comments].filter((comment) => comment.id !== id),
+		setConfirmPopupData({
+			action: () => {
+				dispatch({
+					type: "SET_COMMENTS",
+					payload: [...comments].filter(
+						(comment) => comment.id !== id
+					),
+				});
+			},
+			text: "Delete comment?",
 		});
+		setConfirmPopupVisible(true);
 	};
 
 	return (

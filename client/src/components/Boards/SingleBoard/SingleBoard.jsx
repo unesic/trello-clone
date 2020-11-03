@@ -8,6 +8,8 @@ import { SingleBoard, BoardLink, BoardTitle } from "./SingleBoard.module.css";
 
 const Board = ({ boards, dispatch, service, _id, name, style, pinned }) => {
 	const [user] = useGlobal("user");
+	const [, setConfirmPopupVisible] = useGlobal("confirmPopupVisible");
+	const [, setConfirmPopupData] = useGlobal("confirmPopupData");
 
 	const { backgroundImage, backgroundColor } = JSON.parse(
 		style.replace(/'/g, '"')
@@ -37,8 +39,14 @@ const Board = ({ boards, dispatch, service, _id, name, style, pinned }) => {
 		await service.patch(_id, { pinned: !pinned }, { user });
 	};
 
-	const remove = async () => {
-		await service.remove({ _id });
+	const remove = () => {
+		setConfirmPopupData({
+			action: async () => {
+				await service.remove({ _id });
+			},
+			text: `Delete board "${name}"`,
+		});
+		setConfirmPopupVisible(true);
 	};
 
 	const updateName = async ({ text }) => {
@@ -60,7 +68,12 @@ const Board = ({ boards, dispatch, service, _id, name, style, pinned }) => {
 		>
 			<Link to={`/b/${_id}`} className={BoardLink}></Link>
 
-			<EditableText type="name" onSave={updateName} styles={BoardTitle} required>
+			<EditableText
+				type="name"
+				onSave={updateName}
+				styles={BoardTitle}
+				required
+			>
 				{name}
 			</EditableText>
 			<BoardOptions onDelete={remove} onPin={patch} pinned={pinned} />

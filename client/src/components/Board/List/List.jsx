@@ -15,9 +15,11 @@ import {
 	ButtonAdd,
 } from "./List.module.css";
 
-const List = ({ list: { id, name, items }, listIdx }) => {
+const List = React.memo(({ list: { id, name, items }, listIdx }) => {
 	const [isUserOwner] = useGlobal("isUserOwner");
 	const [, setJustCreated] = useGlobal("justCreated");
+	const [, setConfirmPopupVisible] = useGlobal("confirmPopupVisible");
+	const [, setConfirmPopupData] = useGlobal("confirmPopupData");
 
 	const context = useContext(AppContext);
 
@@ -25,7 +27,6 @@ const List = ({ list: { id, name, items }, listIdx }) => {
 		({ type, text }) => {
 			const newLists = [...context.lists];
 			newLists[listIdx][type] = text;
-
 			context.setLists(newLists);
 		},
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -33,8 +34,16 @@ const List = ({ list: { id, name, items }, listIdx }) => {
 	);
 
 	const removeListHandler = useCallback(() => {
-		const newLists = [...context.lists].filter((list) => list.id !== id);
-		context.setLists(newLists);
+		setConfirmPopupData({
+			action: () => {
+				const newLists = [...context.lists].filter(
+					(list) => list.id !== id
+				);
+				context.setLists(newLists);
+			},
+			text: `Delete list${name !== "" ? ` "${name}"` : ""}?`,
+		});
+		setConfirmPopupVisible(true);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [context.lists]);
 
@@ -96,6 +105,6 @@ const List = ({ list: { id, name, items }, listIdx }) => {
 			)}
 		</Draggable>
 	);
-};
+});
 
 export default List;

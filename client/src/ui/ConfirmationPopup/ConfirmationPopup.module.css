@@ -1,0 +1,73 @@
+.ConfirmationModal {
+	top: 20vh;
+	left: 50%;
+	transform: translateX(-50%);
+	border-radius: 3px;
+	z-index: 99999;
+}
+
+.ConfirmationModal + [class*="Modal_Backdrop"] {
+	z-index: 9999;
+}
+
+.ConfirmText {
+	margin: 4px 0 14px;
+	padding: 0 8px;
+	color: var(--base-solid-1);
+	text-align: center;
+}
+
+.ButtonsContainer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.Button {
+	background: unset;
+	outline: unset;
+	border: unset;
+
+	display: flex;
+	align-items: center;
+	margin: 4px;
+	border-bottom: var(--border-bot);
+	border-radius: 3px;
+	padding: 8px 16px;
+	background-color: var(--base-solid-0);
+	transition: all 0.1s ease-in-out 0s;
+
+	font-size: 1rem;
+	color: var(--base-solid-1);
+}
+
+.Button:hover {
+	background-color: var(--bg-solid-0);
+}
+
+.Button svg {
+	margin-right: 4px;
+	transition: all 0.1s ease-in-out 0s;
+}
+
+.ButtonCancel {
+}
+
+.ButtonCancel:hover {
+	border-color: var(--green);
+}
+
+.ButtonCancel:hover svg {
+	color: var(--green);
+}
+
+.ButtonContinue {
+}
+
+.ButtonContinue:hover {
+	border-color: var(--red);
+}
+
+.ButtonContinue:hover svg {
+	color: var(--red);
+}

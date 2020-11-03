@@ -24,6 +24,7 @@
 
 	border-radius: 3px;
 	padding: 10px 12px;
+	width: 100%;
 	min-height: 32px;
 
 	background-color: var(--bg-solid-1);
