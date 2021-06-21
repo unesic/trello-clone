@@ -1,7 +1,16 @@
 import React, { useEffect, useGlobal } from "reactn";
 import { useFeathers } from "figbird";
+import styled from "styled-components";
 
 import LoginTemplate from "../components/LoginTemplate/LoginTemplate";
+
+const Wrapper = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+`;
 
 const Login = ({ history, location }) => {
 	const [, setUser] = useGlobal("user");
@@ -29,17 +38,10 @@ const Login = ({ history, location }) => {
 	}, []);
 
 	return (
-		<div
-			style={{
-				display: "flex",
-				alignItems: "center",
-				justifyContent: "center",
-				width: "100%",
-				height: "100%",
-			}}
+		<Wrapper
 		>
 			<LoginTemplate />
-		</div>
+		</Wrapper>
 	);
 };
 

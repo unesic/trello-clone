@@ -21,7 +21,7 @@ const LoginTemplate = () => {
 					className={LoginButton}
 				>
 					<FcGoogle />
-					Login with google
+					Login with Google
 				</a>
 			</div>
 		</div>

@@ -20,7 +20,7 @@ const Router = () => {
 				<PrivateRoute path="/boards" component={Boards} />
 				<PrivateRoute path="/b/:id" component={Board} />
 				<Route path="/login" component={Login} />
-				<Route path="/" exact render={() => <div>HOMEPAGE</div>} />
+				<Route path="/" exact render={() => <Redirect to="/boards" />} />
 				<Route
 					path="/logout"
 					render={() => {
