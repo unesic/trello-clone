@@ -2,6 +2,10 @@
 	"name": "react-trello-clone",
 	"version": "0.1.0",
 	"private": true,
+	"engines": {
+		"node": "16.10.0",
+		"npm": "7.24.0"
+	},
 	"dependencies": {
 		"@emotion/core": "^10.0.35",
 		"@feathersjs/authentication-client": "^4.5.8",
