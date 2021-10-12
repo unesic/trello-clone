@@ -11,7 +11,7 @@ import {
 	SideDrawerModal,
 } from "./SideDrawer.module.css";
 
-const SideDrawer = () => {	
+const SideDrawer = () => {
 	const [modalVisible, setModalVisible] = useState(false);
 
 	const openModal = useCallback(() => {

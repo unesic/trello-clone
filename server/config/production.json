@@ -1,4 +1,4 @@
 {
-  "host": "trello-clone-app.feathersjs.com",
+  "host": "trello-v2-server.herokuapp.com",
   "port": "PORT"
 }
