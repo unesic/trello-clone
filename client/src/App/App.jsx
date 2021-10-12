@@ -95,7 +95,6 @@ const App = ({ service, board: { _id, data, style, tags } }) => {
 
 		const { type, source, destination } = res;
 		const newLists = reorder(lists, type, source, destination);
-
 		setLists(newLists);
 		setDragging(null);
 	};
