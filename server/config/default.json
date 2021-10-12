@@ -28,7 +28,7 @@
 			"passwordField": "password"
 		},
 		"oauth": {
-			"redirect": "http://localhost:3000/login",
+			"redirect": "OAUTH_REDIRECT",
 			"google": {
 				"key": "GOOGLE_OAUTH_KEY",
 				"secret": "GOOGLE_OAUTH_SECRET",
@@ -40,5 +40,5 @@
 			}
 		}
 	},
-	"mongodb": "mongodb+srv://tcAdmin:UYAfhMTGywuL5VqN@cluster0.gjuvh.mongodb.net/tc_main?retryWrites=true&w=majority"
+	"mongodb": "MONGO_DB"
 }
