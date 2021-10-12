@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
-import { FiSettings, FiX } from "react-icons/fi";
 
+import { FiSettings, FiX } from "react-icons/fi";
 import Modal from "../../ui/Modal/Modal";
 import ModeAndTransparency from "./ModeAndTransparency/ModeAndTransparency";
 import Colors from "./Colors/Colors";
