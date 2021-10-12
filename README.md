@@ -1,5 +1,5 @@
 # Trello Clone
-### Popular kanban-style project management tool's clone – [Trello](https://trello.com/)
+### Popular kanban-style project management tool clone – [Trello](https://trello.com/)
 
 Another MERN stack project.
 

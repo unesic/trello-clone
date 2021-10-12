@@ -17,7 +17,7 @@ const LoginTemplate = () => {
 			</h2>
 			<div className={ButtonWrapper}>
 				<a
-					href="http://localhost:3030/oauth/google"
+					href={process.env.REACT_APP_AUTH_URL}
 					className={LoginButton}
 				>
 					<FcGoogle />
