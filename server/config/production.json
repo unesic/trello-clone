@@ -1,4 +1,4 @@
 {
-  "host": "trello-v2-server.herokuapp.com",
+  "host": "api-trello.unesic.io",
   "port": "PORT"
 }
