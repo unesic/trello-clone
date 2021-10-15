@@ -19,7 +19,7 @@ const LoginTemplate = () => {
 				<a
 					href={`${
 						process.env.NODE_END === "production"
-							? process.env.PUBLIC_URL
+							? process.env.REACT_APP_PUBLIC_URL
 							: process.env.REACT_APP_SERVER_URL
 					}/oauth/google`}
 					className={LoginButton}
