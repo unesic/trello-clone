@@ -15,7 +15,7 @@
 		],
 		"jwtOptions": {
 			"header": {
-				"typ": "access"
+				"type": "access"
 			},
 			"audience": "https://trello.unesic.io",
 			"issuer": "feathers",
