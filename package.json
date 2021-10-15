@@ -30,10 +30,9 @@
 		"build": "cd client && npm run build",
 		"install-client": "cd client && npm install",
 		"heroku-postbuild": "npm run install-client && npm run build",
-		"server": "node server/src/",
 		"server:dev": "nodemon server/src/",
 		"dev": "concurrently --kill-others-on-fail \"npm run server:dev\" \"npm run start --prefix client\"",
-		"start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix client\""
+		"start": "node server/src/"
 	},
 	"standard": {
 		"env": [
