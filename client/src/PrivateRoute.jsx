@@ -2,8 +2,8 @@ import React, { useGlobal } from "reactn";
 import { Redirect, Route, useLocation } from "react-router-dom";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-	const [user] = useGlobal("user");
 	const location = useLocation();
+	const [user] = useGlobal("user");
 
 	return (
 		<Route
