@@ -17,7 +17,7 @@
 	"directories": {
 		"lib": "server/src",
 		"test": "server/test/",
-		"config": "server/config/"
+		"config": "config/"
 	},
 	"engines": {
 		"node": "^12.0.0",
