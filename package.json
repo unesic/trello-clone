@@ -4,7 +4,7 @@
 	"version": "0.0.0",
 	"homepage": "",
 	"private": true,
-	"main": "src",
+	"main": "server/src",
 	"keywords": [
 		"feathers"
 	],
@@ -15,9 +15,9 @@
 	"contributors": [],
 	"bugs": {},
 	"directories": {
-		"lib": "src",
-		"test": "test/",
-		"config": "config/"
+		"lib": "server/src",
+		"test": "server/test/",
+		"config": "server/config/"
 	},
 	"engines": {
 		"node": "^12.0.0",
@@ -26,9 +26,14 @@
 	"scripts": {
 		"test": "npm run lint && npm run jest",
 		"lint": "eslint src/. test/. --config .eslintrc.json --fix",
-		"dev": "nodemon src/",
-		"start": "node src/",
-		"jest": "jest  --forceExit"
+		"jest": "jest  --forceExit",
+		"build": "cd client && npm run build",
+		"install-client": "cd client && npm install",
+		"heroku-postbuild": "npm run install-client && npm run build",
+		"server": "node server/src/",
+		"server:dev": "nodemon server/src/",
+		"dev": "concurrently --kill-others-on-fail \"npm run server:dev\" \"npm run start --prefix client\"",
+		"start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix client\""
 	},
 	"standard": {
 		"env": [
@@ -47,6 +52,7 @@
 		"@feathersjs/socketio": "^4.5.8",
 		"@feathersjs/transport-commons": "^4.5.8",
 		"compression": "^1.7.4",
+		"concurrently": "^6.3.0",
 		"cors": "^2.8.5",
 		"dotenv": "^8.2.0",
 		"feathers-mongoose": "^8.3.1",

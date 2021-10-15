@@ -17,7 +17,11 @@ const LoginTemplate = () => {
 			</h2>
 			<div className={ButtonWrapper}>
 				<a
-					href={process.env.REACT_APP_AUTH_URL}
+					href={`${
+						process.env.NODE_END === "production"
+							? process.env.PUBLIC_URL
+							: process.env.REACT_APP_SERVER_URL
+					}/oauth/google`}
 					className={LoginButton}
 				>
 					<FcGoogle />
