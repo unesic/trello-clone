@@ -33,23 +33,21 @@ app.use(cors());
 app.use(compress());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(favicon(path.join(app.get("public"), "favicon.ico")));
-
 
 /**
  * Load in client directories
  */
- app.use(express.static(path.join(__dirname, "../client/build")));
+app.use(express.static(path.join(__dirname, "../../client/build")));
 
- /**
-  * Handle client routes
-  */
- const clientRoutes = ["/", "/login", "/logout", "/boards", "/b/:id"];
- clientRoutes.forEach((route) => {
-	 app.get(route, (req, res) => {
-		 res.sendFile(path.join(__dirname, "../client/build", "index.html"));
-	 });
- });
+/**
+ * Handle client routes
+ */
+const clientRoutes = ["/", "/login", "/logout", "/boards", "/b/:id"];
+clientRoutes.forEach((route) => {
+	app.get(route, (req, res) => {
+		res.sendFile(path.join(__dirname, "../../client/build", "index.html"));
+	});
+});
 
 // Set up Plugins and providers
 app.configure(express.rest());
