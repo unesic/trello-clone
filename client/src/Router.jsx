@@ -5,6 +5,7 @@ import { useFeathers } from "figbird";
 import PrivateRoute from "./PrivateRoute";
 
 import Navigation from "./components/Navigation/Navigation";
+import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Boards from "./pages/Boards";
 import Board from "./pages/Board";
@@ -17,10 +18,10 @@ const Router = () => {
 		<BrowserRouter>
 			<Navigation />
 			<Switch>
+				<Route path="/" exact component={Home} />
 				<PrivateRoute path="/boards" component={Boards} />
 				<PrivateRoute path="/b/:id" component={Board} />
 				<Route path="/login" component={Login} />
-				<Route path="/" exact render={() => <Redirect to="/boards" />} />
 				<Route
 					path="/logout"
 					render={() => {

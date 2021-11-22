@@ -32,13 +32,13 @@ const MainImages = ({
 			</h4>
 			<div className={Images}>
 				<div className={SingleImageWrapper}>
-					<a
-						href="/"
-						onClick={(e) => click(e, "unset")}
+					<button
+						type="button"
+						onClick={() => click("unset")}
 						className={`${SingleImageInner} ${ImageUnset}`}
 					>
 						<FiX />
-					</a>
+					</button>
 				</div>
 				{images.map((image) => (
 					<SingleImage

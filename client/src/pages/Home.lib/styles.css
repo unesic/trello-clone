@@ -1,0 +1,15 @@
+body {
+	overflow: auto !important;
+}
+
+body.light {
+	background-color: var(--grey);
+}
+
+body.dark {
+	background-color: var(--bg-solid-1);
+}
+
+[class*="Navigation_NavWrapper"] {
+	display: none !important;
+}
