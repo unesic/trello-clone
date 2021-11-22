@@ -9,6 +9,7 @@ export const screen = {
 };
 
 export const Container = styled.div`
+	position: relative;
 	margin: 0 auto;
 	padding: 0 1rem;
 	max-width: 100%;
