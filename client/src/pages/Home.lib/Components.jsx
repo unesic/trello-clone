@@ -11,7 +11,7 @@ export const screen = {
 export const Container = styled.div`
 	position: relative;
 	margin: 0 auto;
-	padding: 0 1rem;
+	padding: 0 1rem !important;
 	max-width: 100%;
 	width: 100%;
 	min-height: 100vh;
@@ -42,6 +42,7 @@ export const Header = styled.header`
 	grid-template-columns: repeat(12, minmax(0, 1fr));
 	grid-column-gap: 2rem;
 	place-items: center;
+	padding-top: 1rem;
 	padding-bottom: 8rem;
 	text-align: center;
 
@@ -61,7 +62,7 @@ export const Content = styled.div`
 	}
 
 	@media (min-width: ${screen.xl}) {
-		grid-column: span 5 / span 5;
+		grid-column: span 6 / span 6;
 	}
 `;
 
@@ -86,7 +87,7 @@ export const Copy = styled.p`
 	}
 
 	@media (min-width: ${screen.xl}) {
-		max-width: 100%;
+		max-width: 34rem;
 	}
 `;
 
@@ -168,7 +169,7 @@ export const Graphic = styled.div`
 	}
 
 	@media (min-width: ${screen.xl}) {
-		grid-column: span 7 / span 7;
+		grid-column: span 6 / span 6;
 	}
 `;
 
