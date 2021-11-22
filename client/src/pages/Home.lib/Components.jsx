@@ -77,6 +77,7 @@ export const Copy = styled.p`
 	margin-right: auto;
 	max-width: 25rem;
 	font-size: 1.125rem;
+	line-height: 1.75rem;
 	color: var(--text-solid-1);
 
 	@media (min-width: ${screen.lg}) {
