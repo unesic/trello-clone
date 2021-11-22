@@ -36,7 +36,7 @@
 
 Please file an issue by going to the [issues tab](https://github.com/unesic/trello-clone/issues) or on one the following:
 
-- [Here](https://github.com/unesic/trello-clone/issues/new?assignees=unesic&labels=bug&template=bug-report.md&title=%5BBUG%5D+) – for bugs, missing documentation, or unexpected behavior.
+- [Here](https://github.com/unesic/trello-clone/issues/new?assignees=unesic&labels=bug&template=bug_report.md&title=%5BBUG%5D) – for bugs, missing documentation, or unexpected behavior.
 - [Here](https://github.com/unesic/trello-clone/issues/new?assignees=unesic&labels=enhancement&template=feature_request.md&title=%5BFEATURE%5D) – for all feature requests.
 
 ## License
