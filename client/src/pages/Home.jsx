@@ -40,7 +40,7 @@ import {
 
 import "./Home.lib/styles.css";
 
-const Home = () => {
+const Home = ({ location }) => {
 	const stack = useMemo(
 		() => [
 			{ icon: react, label: "React" },
@@ -80,6 +80,11 @@ const Home = () => {
 		if (darkMode) document.body.classList.add("dark");
 		else document.body.classList.add("light");
 	}, [darkMode]);
+
+	useEffect(() => {
+		document.body.classList.add("homepage");
+		return () => document.body.classList.remove("homepage");
+	}, []);
 
 	return (
 		<Container>

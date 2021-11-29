@@ -1,17 +1,17 @@
-body {
+body.homepage {
 	overflow: auto !important;
 	width: auto !important;
 	height: auto !important;
 }
 
-body.light {
+body.homepage.light {
 	background-color: var(--grey);
 }
 
-body.dark {
+body.homepage.dark {
 	background-color: var(--bg-solid-1);
 }
 
-[class*="Navigation_NavWrapper"] {
+body.homepage [class*="Navigation_NavWrapper"] {
 	display: none !important;
 }
