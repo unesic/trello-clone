@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useReducer, useGlobal } from "reactn";
 
-import dummyData from "./images-data.json";
 import reducer from "./Images.reducer";
 import {
 	useOnBlur,
@@ -8,7 +7,7 @@ import {
 	useOnChange,
 	useOnKeyUp,
 	useSearch,
-	// useGetRandom,
+	useGetRandom,
 	usePickImage,
 	useToggleFavorite,
 } from "./lib/MainImages.hooks";
@@ -27,18 +26,18 @@ import {
 	LoadingContainer,
 } from "./Images.module.css";
 
+const LS_PREV_IMGS = "unesicio-prevImages";
+const LS_FAV_IMGS = "unesicio-favImages";
+
 const Images = () => {
 	const [boardStyle, setBoardStyle] = useGlobal("boardStyle");
 
 	const setBackgroundImage = (image) => {
-		setBoardStyle({
-			...boardStyle,
-			backgroundImage: image,
-		});
+		setBoardStyle({ ...boardStyle, backgroundImage: image });
 	};
 
 	const [state, dispatch] = useReducer(reducer, {
-		images: dummyData,
+		images: [],
 		snapshotImages: [],
 		prevImages: [],
 		favImages: [],
@@ -52,7 +51,7 @@ const Images = () => {
 	const prevRef = useRef(false);
 	const favRef = useRef(false);
 
-	// const getRandom = useGetRandom(dispatch);
+	const getRandom = useGetRandom(dispatch);
 	const search = useSearch(dispatch, state);
 
 	const pickImage = usePickImage(dispatch, state, setBackgroundImage);
@@ -64,31 +63,31 @@ const Images = () => {
 	const onKeyUpHandler = useOnKeyUp(dispatch, state, search, onBlurHandler);
 
 	useEffect(() => {
-		// getRandom();
+		getRandom();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	useEffect(() => {
-		const localPrevImages = JSON.parse(localStorage.getItem("prevImages"));
-		if (localPrevImages && localPrevImages !== null)
+		const prevImages = localStorage.getItem(LS_PREV_IMGS);
+		if (prevImages) {
 			dispatch({
 				type: "SET_PREV_IMAGES",
-				payload: [...localPrevImages],
+				payload: JSON.parse(prevImages),
 			});
+		}
 
-		const localFavImages = JSON.parse(localStorage.getItem("favImages"));
-		if (localFavImages && localFavImages !== null)
+		const localFavImages = localStorage.getItem(LS_FAV_IMGS);
+		if (localFavImages)
 			dispatch({
 				type: "SET_FAV_IMAGES",
-				payload: [...localFavImages],
+				payload: JSON.parse(localFavImages),
 			});
 	}, []);
 
 	useEffect(() => {
 		if (prevRef.current) {
-			localStorage.setItem(
-				"prevImages",
-				JSON.stringify(state.prevImages)
-			);
+			const prevImgs = JSON.stringify(state.prevImages);
+			localStorage.setItem(LS_PREV_IMGS, prevImgs);
 		} else {
 			prevRef.current = true;
 		}
@@ -97,7 +96,8 @@ const Images = () => {
 
 	useEffect(() => {
 		if (favRef.current) {
-			localStorage.setItem("favImages", JSON.stringify(state.favImages));
+			const favImgs = JSON.stringify(state.favImages);
+			localStorage.setItem(LS_FAV_IMGS, favImgs);
 		} else {
 			favRef.current = true;
 		}

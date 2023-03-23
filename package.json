@@ -24,15 +24,14 @@
 		"npm": ">= 3.0.0"
 	},
 	"scripts": {
+		"start": "node server/src/",
+		"dev": "concurrently --kill-others-on-fail \"npm run server:dev\" \"npm run start --prefix client\"",
 		"test": "npm run lint && npm run jest",
 		"lint": "eslint src/. test/. --config .eslintrc.json --fix",
 		"jest": "jest  --forceExit",
 		"build": "cd client && npm run build",
 		"install-client": "cd client && npm install",
-		"heroku-postbuild": "npm run install-client && npm run build",
-		"server:dev": "nodemon server/src/",
-		"dev": "concurrently --kill-others-on-fail \"npm run server:dev\" \"npm run start --prefix client\"",
-		"start": "node server/src/"
+		"server:dev": "nodemon server/src/"
 	},
 	"standard": {
 		"env": [

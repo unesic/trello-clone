@@ -6,6 +6,8 @@ import mongodb from "./mongodb.svg";
 import react from "./react.svg";
 import router from "./router.svg";
 import socketio from "./socketio.svg";
+import render from "./render.svg";
+import vercel from "./vercel.svg";
 
 const Globe = () => (
 	<svg
@@ -85,6 +87,8 @@ export {
 	react,
 	router,
 	socketio,
+	render,
+	vercel,
 	Globe,
 	LinkedIn,
 	Mail,

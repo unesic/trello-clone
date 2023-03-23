@@ -28,7 +28,7 @@ import img_light from "./Home.lib/images/trello-clone-light.png";
 import {
 	feathers,
 	socketio,
-	heroku,
+	render,
 	mongodb,
 	react,
 	router,
@@ -48,7 +48,7 @@ const Home = ({ location }) => {
 			{ icon: socketio, label: "Socket.io" },
 			{ icon: feathers, label: "Feathers" },
 			{ icon: mongodb, label: "Mongodb" },
-			{ icon: heroku, label: "Heroku" },
+			{ icon: render, label: "Render" },
 		],
 		[]
 	);
