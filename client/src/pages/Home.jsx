@@ -55,7 +55,7 @@ const Home = ({ location }) => {
 
 	const links = useMemo(
 		() => [
-			{ icon: <Globe />, label: "unesic.io", url: "https://unesic.io" },
+			{ icon: <Globe />, label: "unesic.dev", url: "https://unesic.dev" },
 			{
 				icon: <Github />,
 				label: "Github",
@@ -66,7 +66,7 @@ const Home = ({ location }) => {
 				label: "LinkedIn",
 				url: "https://www.linkedin.com/in/unesic/",
 			},
-			{ icon: <Mail />, label: "Email", url: "mailto:info@unesic.io" },
+			{ icon: <Mail />, label: "Email", url: "mailto:info@unesic.dev" },
 		],
 		[]
 	);
